@@ -5,6 +5,7 @@ from core.psql import DB
 import csv
 import datetime
 from util.config import use_network
+from crypto.identity.address import address_from_public_key
 
 
 test_acct = [""]
@@ -96,7 +97,7 @@ def create_buy_records(b):
             else:
                 classify = "buy"
             remain = order_amt
-            sender = i[3]
+            sender = address_from_public_key(i[3])
 
             # create order record including
             t = [tax_lot, ts, order_amt, price, market_value, classify, convert_ts, "open", remain, sender]
