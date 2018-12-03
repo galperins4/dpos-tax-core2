@@ -7,7 +7,7 @@ lock = threading.Lock()
 
 class TaxDB:
     def __init__(self, u):
-        self.connection = sqlite3.connect('/home/'+u+'/dpos-tax/tax.db')
+        self.connection = sqlite3.connect('/home/'+u+'/dpos-tax-core2/tax.db')
         self.cursor = self.connection.cursor()
 
     def commit(self):
