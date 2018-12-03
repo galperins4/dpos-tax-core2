@@ -17,7 +17,7 @@ if __name__ == "__main__":
         taxdb.setup()
 
         # setup initial delegates
-        d = psql.get_delegates()
+        d = psql.get_delegates().fetchall()
         for i in d:
             print(i)
         quit()
