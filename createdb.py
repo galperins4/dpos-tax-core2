@@ -18,9 +18,9 @@ if __name__ == "__main__":
 
         # setup initial delegates
         d = psql.get_delegates()
-        print(d)
-        quit()
         addresses = [i[0] for i in d]
+        print(addresses)
+        quit()
         taxdb.update_delegates(addresses)
 
         # get prices
