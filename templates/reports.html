@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.6.5, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.6.5, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="description" content="">
+  <title>Home</title>
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobirise-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tether.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-reboot.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-reboot.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown-style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/data-tables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mbr-additional.css') }}">  
+  
+</head>
+<body>
+  <section class="menu cid-qLo4vYYBDU" once="menu" id="menu1-0">
+
+<section class="engine"><a href="https://mobirise.ws/g">create your own website</a></section><section class="section-table cid-qLo9vhxYJw" id="table1-c">
+
+  
+  
+  <div class="container container-table">
+      <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+          Buy / Lot Information (Prices from CMC API)</h2>
+      
+      <div class="table-wrapper">
+        <div class="container">
+          <div class="row search">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="dataTables_filter">
+                  <label class="searchInfo mbr-fonts-style display-7">Search:</label>
+                  <input class="form-control input-sm" disabled="">
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container scroll">
+          <table class="table isSearch" cellspacing="0">
+            <thead>
+              <tr class="table-heads ">
+                 
+              <th class="head-item mbr-fonts-style display-7">
+                      Tax Lot</th><th class="head-item mbr-fonts-style display-7">
+                      Timestamp(Unix)</th><th class="head-item mbr-fonts-style display-7">
+                      Buy Amount</th><th class="head-item mbr-fonts-style display-7">
+					  Price</th><th class="head-item mbr-fonts-style display-7">
+					  Market Value</th><th class="head-item mbr-fonts-style display-7">
+					  Transaction Type</th><th class="head-item mbr-fonts-style display-7">
+					  DateTime</th><th class="head-item mbr-fonts-style display-7">
+					  Lot Status</th><th class="head-item mbr-fonts-style display-7">
+					  Remaining Qty</th><th class="head-item mbr-fonts-style display-7">
+                      Sender</th></tr>
+            </thead>
+
+            <tbody>
+            {% for b in buy %}  
+				<tr> 
+					<td class="body-item mbr-fonts-style display-7">{{ b[0] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[1] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[2] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[3] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[4] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[5] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[6] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[7] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[8] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ b[9] }}</td>
+				</tr>
+				{% endfor %}
+             </tbody>
+          </table>
+        </div>
+        <div class="container table-info-container">
+          <div class="row info">
+            <div class="col-md-6">
+              <div class="dataTables_info mbr-fonts-style display-7">
+                <span class="infoBefore">Showing</span>
+                <span class="inactive infoRows"></span>
+                <span class="infoAfter">entries</span>
+                <span class="infoFilteredBefore">(filtered from</span>
+                <span class="inactive infoRows"></span>
+                <span class="infoFilteredAfter"> total entries)</span>
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	<div class="container container-table">
+      <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+          Sell / Capital Gains (Prices from CMC API)</h2>
+
+        <div class="container scroll">
+          <table class="table isSearch" cellspacing="0">
+            <thead>
+              <tr class="table-heads ">
+                 
+              <th class="head-item mbr-fonts-style display-7">
+                      Timestamp(Unix)</th><th class="head-item mbr-fonts-style display-7">
+                      Sell Amount</th><th class="head-item mbr-fonts-style display-7">
+					  Price</th><th class="head-item mbr-fonts-style display-7">
+					  Market Value</th><th class="head-item mbr-fonts-style display-7">
+					  DateTime</th><th class="head-item mbr-fonts-style display-7">
+					  Short Term Gain/Loss</th><th class="head-item mbr-fonts-style display-7">
+                      Long Term Gain/Loss</th></tr>
+            </thead>
+
+            <tbody>
+            {% for n in sell %}  
+				<tr> 
+					<td class="body-item mbr-fonts-style display-7">{{ n[0] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ n[1] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ n[2] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ n[3] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ n[4] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ n[5] }}</td>
+					<td class="body-item mbr-fonts-style display-7">{{ n[6] }}</td>
+				</tr>
+				{% endfor %}
+             </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+	
+	
+</section>
+
+
+  <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/tether.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/mbr-tabs.js')}}"></script>
+  <script src="{{url_for('static', filename='js/jquery.touch-swipe.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/jquery.data-tables.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/data-tables.bootstrap4.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/script.js')}}"></script>
+  
+  
+</body>
+</html>
