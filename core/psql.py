@@ -17,10 +17,10 @@ class DB:
     def get_transactions(self, account, side):
         try:
             if side == "buy":
-                self.cursor.execute(f"""SELECT "timestamp", "amount", "fee", "senderId", "id" FROM transactions WHERE "recipientId" = '{
+                self.cursor.execute(f"""SELECT "timestamp", "amount", "fee", "senderId", "id" FROM transactions WHERE "recipient_id" = '{
                 account}' AND "type" = {0} ORDER BY "timestamp" ASC""")
             else:
-                self.cursor.execute(f"""SELECT "timestamp", "amount", "fee", "recipientId", "id" FROM transactions WHERE "senderId" = '{
+                self.cursor.execute(f"""SELECT "timestamp", "amount", "fee", "recipient_id", "id" FROM transactions WHERE "senderId" = '{
                 account}'ORDER BY "timestamp" ASC""")
             return self.cursor.fetchall()
         except Exception as e:
