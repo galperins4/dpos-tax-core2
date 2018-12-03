@@ -50,7 +50,7 @@ def buy(acct):
     s = "buy"
     buy_agg=[]
     for i in acct:
-        buys = psql.get_transactions(i, s)
+        buys = psql.get_transactions(address_from_public_key(i), s)
         buy_agg += buys
         
     buy_orders = create_buy_records(buy_agg)
