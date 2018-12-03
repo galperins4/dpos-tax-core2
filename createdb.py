@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
         # setup initial delegates
         d = psql.get_delegates()
-        ror i in d:
+        for i in d:
             print(i[0])
             print("")
         quit()
