@@ -18,7 +18,9 @@ if __name__ == "__main__":
 
         # setup initial delegates
         d = psql.get_delegates()
-        print(d[0][0])
+        ror i in d:
+            print(i[0])
+            print("")
         quit()
         addresses = [i[0] for i in d]
         print(addresses)
