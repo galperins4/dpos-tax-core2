@@ -279,7 +279,7 @@ def build_network():
     #e = network[data['network']]['epoch']
     e = ["2017", "3", "21", "13", "00", "00"]
     t = [int(i) for i in e]
-    epoch = datetime(t[0], t[1], t[2], t[3], t[4], t[5])
+    epoch = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
     version = 23
     wif = 170
     
