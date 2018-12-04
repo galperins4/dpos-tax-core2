@@ -6,6 +6,7 @@ import csv
 import datetime
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
+import sys
 
 
 test_acct = ["032cfbb18f4e49952c6d6475e8adc6d0cba00b81ef6606cc4927b78c6c50558beb"]
@@ -269,7 +270,8 @@ def process_taxes(acct):
     return buys, sells
 
 if __name__ == '__main__':
-    n = use_network("ark")
+    option = sys.argv[1]
+    n = use_network(option)
     taxdb = TaxDB(n['dbuser'])
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
     tax(test_acct)
