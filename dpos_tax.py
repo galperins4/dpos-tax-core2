@@ -275,17 +275,23 @@ def process_taxes(acct):
 
   
 def build_network():
-    e = network[data['network']]['epoch']
+   
+    #e = network[data['network']]['epoch']
+    e = ["2017", "3", "21", "13", "00", "00"]
     t = [int(i) for i in e]
     epoch = datetime(t[0], t[1], t[2], t[3], t[4], t[5])
-    version = network[data['network']]['version']
-    wif = network[data['network']]['wif']
+    version = 23
+    wif = 170
+    
+    #version = network[data['network']]['version']
+    #wif = network[data['network']]['wif']
     set_custom_network(epoch, version, wif)
     
     
 if __name__ == '__main__':
     option = sys.argv[1]
     n = use_network(option)
+    build_network()
     taxdb = TaxDB(n['dbuser'])
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
     tax(test_acct)
