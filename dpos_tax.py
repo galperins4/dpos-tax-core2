@@ -6,6 +6,7 @@ import csv
 import datetime
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
+from crypto.configuration.network import set_custom_network
 import sys
 
 
@@ -217,11 +218,13 @@ def write_csv(b,s):
         writer.writerow(fieldnames)
         writer.writerows(s)
 
+        
 def buy_convert(b):
     for i in b:
         i[2] = i[2]/atomic
         i[8] = i[8]/atomic
 
+        
 def sell_convert(s):
     for i in s:
         i[1] = i[1]/atomic
@@ -234,6 +237,7 @@ def staking_test(d, b):
         if result == "Yes":
             i[5] = "Staking Reward"
 
+            
 def exchange_test(b):
     for i in b:
         addr = i[9]
@@ -269,6 +273,16 @@ def process_taxes(acct):
 
     return buys, sells
 
+  
+def build_network():
+    e = network[data['network']]['epoch']
+    t = [int(i) for i in e]
+    epoch = datetime(t[0], t[1], t[2], t[3], t[4], t[5])
+    version = network[data['network']]['version']
+    wif = network[data['network']]['wif']
+    set_custom_network(epoch, version, wif)
+    
+    
 if __name__ == '__main__':
     option = sys.argv[1]
     n = use_network(option)
