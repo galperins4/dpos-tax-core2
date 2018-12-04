@@ -5,11 +5,12 @@ from reference import get_offset, get_timestamps
 from util.config import use_network
 import os.path
 import time
+import sys
 
 
 if __name__ == "__main__":
-
-    n = use_network("ark")
+    option = sys.argv[1]
+    n = use_network(option)
     # check to see if tax.db exists, if not initialize db, etc
     if os.path.exists('tax.db') == False:
         taxdb = TaxDB(n['dbuser'])
