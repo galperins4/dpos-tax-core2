@@ -112,8 +112,11 @@ def create_buy_records(b):
 
 def create_sell_records(s):
     sells = []
+    #map pkeys in test_accouts to addresses so transfers check works
+    tmp_list = map(address_from_public_key,test_acct)
+    check = list(tmp_list)
     for i in s:
-        if i[4] not in exceptions and i[3] not in test_acct:
+        if i[4] not in exceptions and i[3] not in check:
             # normal sell
             sell_amt = (i[1]+i[2])
         else:
