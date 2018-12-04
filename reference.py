@@ -4,6 +4,7 @@ from core.taxdb import TaxDB
 from core.price import Price
 from util.config import use_network
 import time
+import sys
 
 
 day = 86400
@@ -26,7 +27,8 @@ def get_timestamps(first, ts):
     return l
 
 if __name__ == '__main__':
-    n = use_network("ark")
+    option = sys.argv[1]
+    n = use_network(option)
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
     taxdb = TaxDB(n['dbuser'])
 
