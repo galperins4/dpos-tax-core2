@@ -303,7 +303,7 @@ def process_taxes(acct):
     sell_convert(sells)
     staking_test(delegates, buys)
     exchange_test(buys)
-    summarize(buys,sell)
+    summarize(buys,sells)
     quit()
 
     # output to buy and sell csv
