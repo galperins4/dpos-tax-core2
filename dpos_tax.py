@@ -288,8 +288,11 @@ def summarize(b,s):
             year2['short']+=j[5]
             year1['long']+=j[6]
     
-    print(year1)
-    print(year2)
+    sum_year1 = ["2017",round(year1['income'],2),round(year1['short'],2),round(year1['long'],2)]
+    sum_year2 = ["2018",round(year1['income'],2),round(year1['short'],2),round(year1['long'],2)]
+    
+    years = [sum_year1, sum_year2]
+    print(years)
       
       
 def process_taxes(acct):
