@@ -270,10 +270,8 @@ def summarize(b,s):
     year1 = {"income":0, "short":0, "long":0}
     year2 = {"income":0, "short":0, "long":0}
     income = ['Staking Reward','buy']
-    #twoseventeen = 1483250400
     twoeighteen = 1514786400
     twonineteen = 1546322400
-    #ts+n['epoch']
     
     for i in b:
         if (i[1]+n['epoch']) < twoeighteen:
