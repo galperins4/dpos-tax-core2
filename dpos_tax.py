@@ -259,6 +259,37 @@ def delegate_check(d, check):
    return test
 
 
+def summarize(b,s):
+   year1 = {"income":0, "short":0, "long":0}
+   year2 = {"income":0, "short":0, "long":0}
+   income = ['Staking Reward','buy']
+   #twoseventeen = 1483250400
+   twoeighteen = 1514786400
+   twonineteen = 1546322400
+   #ts+n['epoch']
+    
+   for i in b:
+       #i[4] is market value, i[5] is tx_type, #i[1] is timestamp
+       if (i[1]+n['epoch']) < twoeighteen:
+           #2017 transaction
+           if i[5] in income:
+               year1['income']+=i[4] 
+        else:
+           if i[5] in income:
+               year2['income']+=i[4]
+      
+   for i in s:
+       #do something
+       #i[0] is timestamp, i[3] is market value, i[5] is short-term, i[6] is long-term
+      
+      
+      
+      
+      
+    
+    
+    
+
 def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
 
@@ -270,6 +301,7 @@ def process_taxes(acct):
     sell_convert(sells)
     staking_test(delegates, buys)
     exchange_test(buys)
+    summarize(buys,sell)
 
     # output to buy and sell csv
     write_csv(buys, sells)
@@ -278,7 +310,6 @@ def process_taxes(acct):
 
   
 def build_network():
-   
     #e = network[data['network']]['epoch']
     e = ["2017", "3", "21", "13", "00", "00"]
     t = [int(i) for i in e]
