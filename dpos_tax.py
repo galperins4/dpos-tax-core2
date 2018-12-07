@@ -289,7 +289,7 @@ def summarize(b,s):
             year1['long']+=j[6]
     
     sum_year1 = ["2017",round(year1['income'],2),round(year1['short'],2),round(year1['long'],2)]
-    sum_year2 = ["2018",round(year1['income'],2),round(year1['short'],2),round(year1['long'],2)]
+    sum_year2 = ["2018",round(year2['income'],2),round(year2['short'],2),round(year2['long'],2)]
     
     years = [sum_year1, sum_year2]
     print(years)
