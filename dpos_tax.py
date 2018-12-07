@@ -260,36 +260,38 @@ def delegate_check(d, check):
 
 
 def summarize(b,s):
-   year1 = {"income":0, "short":0, "long":0}
-   year2 = {"income":0, "short":0, "long":0}
-   income = ['Staking Reward','buy']
-   #twoseventeen = 1483250400
-   twoeighteen = 1514786400
-   twonineteen = 1546322400
-   #ts+n['epoch']
+    year1 = {"income":0, "short":0, "long":0}
+    year2 = {"income":0, "short":0, "long":0}
+    income = ['Staking Reward','buy']
+    #twoseventeen = 1483250400
+    twoeighteen = 1514786400
+    twonineteen = 1546322400
+    #ts+n['epoch']
     
-   for i in b:
-       #i[4] is market value, i[5] is tx_type, #i[1] is timestamp
-       if (i[1]+n['epoch']) < twoeighteen:
-           #2017 transaction
-           if i[5] in income:
-               year1['income']+=i[4] 
+    for i in b:
+        if (i[1]+n['epoch']) < twoeighteen:
+            #2017 income
+            if i[5] in income:
+                year1['income']+=i[4] 
+        elif (i[1]+n['epoch']) < twonineteen:
+            if i[5] in income:
+                year2['income']+=i[4]
         else:
-           if i[5] in income:
-               year2['income']+=i[4]
+            pass
       
-   for i in s:
-       #do something
-       #i[0] is timestamp, i[3] is market value, i[5] is short-term, i[6] is long-term
-      
-      
-      
-      
-      
+    for j in s:
+        if j[0]+n['epoch']) < twoeighteen:
+            #2017 trading
+            year1['short']+j[5]
+            year1['long']+=j[6]
+        elif (j[0]+n['epoch']) < twonineteen:
+            year2['short']+=j[5]
+            year1['long']+=j[6]
     
-    
-    
-
+    print(year1)
+    print(year2)
+      
+      
 def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
 
@@ -302,6 +304,7 @@ def process_taxes(acct):
     staking_test(delegates, buys)
     exchange_test(buys)
     summarize(buys,sell)
+    quit()
 
     # output to buy and sell csv
     write_csv(buys, sells)
