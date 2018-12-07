@@ -289,7 +289,7 @@ def summarize(b,s):
     for j in s:
         if (j[0]+n['epoch']) < twoeighteen:
             #2017 trading
-            year1['short']+j[5]
+            year1['short']+=j[5]
             year1['long']+=j[6]
         elif (j[0]+n['epoch']) < twonineteen:
             year2['short']+=j[5]
