@@ -11,7 +11,7 @@ import sys
 #import request
 
 
-#test_acct = [""]
+acct = [""]
 exchange_acct = ["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK", "AFrPtEmzu6wdVpa2CnRDEKGQQMWgq8nE9V","ARXhacG5MPdT1ehWPTPo8jtfC5NrS29eKS",
                  "AJbmGnDAx9y91MQCDApyaqZhn6fBvYX9iJ","AcVHEfEmFJkgoyuNczpgyxEA3MZ747DRAu","ANQftoXeWoa9ud9q9dd2ZrUpuKinpdejAJ"]
 exceptions = [""]
