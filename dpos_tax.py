@@ -7,13 +7,15 @@ import datetime
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
-#import sys
 
 
 acct = [""]
 exchange_acct = ["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK", "AFrPtEmzu6wdVpa2CnRDEKGQQMWgq8nE9V","ARXhacG5MPdT1ehWPTPo8jtfC5NrS29eKS",
                  "AJbmGnDAx9y91MQCDApyaqZhn6fBvYX9iJ","AcVHEfEmFJkgoyuNczpgyxEA3MZ747DRAu","ANQftoXeWoa9ud9q9dd2ZrUpuKinpdejAJ"]
 exceptions = [""]
+n = None
+taxdb = None
+psql = None
 atomic = 100000000
 year = 86400 * 365
 app = Flask(__name__)
@@ -24,10 +26,21 @@ def tax():
     try:
         global acct
         global exceptions
+        global n
+        global taxdb
+        global psql
+               
         # get addresses and exceptions
         req_data = request.get_json()
         acct = [i for i in req_data['accounts']]
         exceptions = [i for i in req_data["exceptions"]]
+        network = req_data['network']
+        
+        n = use_network(network)
+        build_network()
+        taxdb = TaxDB(n['dbuser'])
+        psql = DB(n['database'], n['dbuser'], n['dbpassword'])
+        
         out_buy, out_sell, out_summary = process_taxes(acct)
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'recipientId']
@@ -346,10 +359,11 @@ def build_network():
     
     
 if __name__ == '__main__':
-    option = "ark"
+    '''option = "ark"
     n = use_network(option)
     build_network()
     taxdb = TaxDB(n['dbuser'])
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
+    '''
     app.run(host="127.0.0.1", threaded=False)
 
