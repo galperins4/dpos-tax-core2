@@ -8,29 +8,42 @@ from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
 import sys
+iimport requests
 
 
-test_acct = [""]
+#test_acct = [""]
 exchange_acct = ["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK", "AFrPtEmzu6wdVpa2CnRDEKGQQMWgq8nE9V","ARXhacG5MPdT1ehWPTPo8jtfC5NrS29eKS",
                  "AJbmGnDAx9y91MQCDApyaqZhn6fBvYX9iJ","AcVHEfEmFJkgoyuNczpgyxEA3MZ747DRAu","ANQftoXeWoa9ud9q9dd2ZrUpuKinpdejAJ"]
-exceptions = [""]
+#exceptions = [""]
 atomic = 100000000
 year = 86400 * 365
 app = Flask(__name__)
 
 
-#@app.route("/api/<acct>")
-def tax(acct):
-    out_buy, out_sell = process_taxes(acct)
-    buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
-    sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'recipientId']
-    acctDict = {"Buys": {"columns": buy_cols, "data":out_buy},
-                "Sells": {"columns": sell_cols, "data":out_sell}}
+@app.route("/api", methods=['POST'])
+def tax():
+    try:
+        # get addresses and exceptions
+        req_data = request.get_json()
+        acct = req_data['accounts']
+        exceptions = req_data["exceptions"]
+    
+    
+        out_buy, out_sell, out_summary = process_taxes(acct)
+        buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
+        sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'recipientId']
+        summary_cols = ['year', 'income', 'short term', 'long term']
+        acctDict = {"Buys": {"columns": buy_cols, "data":out_buy},
+                    "Sells": {"columns": sell_cols, "data":out_sell},
+                    "Summary": {"columns": summary_cols, "data":out_summary}
+                   }
+        return jsonify(acctDict)
 
-
-    #return render_template('reports.html', buy = out_buy, sell = out_sell)
-
-    #return jsonify(acctDict)
+        #return render_template('reports.html', buy = out_buy, sell = out_sell) 
+    Except Exception as e:
+         print(e)
+         error ={"success":False, "msg":"API Error"}
+         return jsonify(Error=error)
     
 
 def get_db_price(ts):
@@ -317,7 +330,7 @@ def process_taxes(acct):
     # output to buy and sell csv
     write_csv(buys, sells, agg_years)
 
-    return buys, sells
+    return buys, sells, agg_years
 
   
 def build_network():
@@ -334,12 +347,12 @@ def build_network():
     
     
 if __name__ == '__main__':
-    option = sys.argv[1]
+    option = "ark"
     n = use_network(option)
     build_network()
     taxdb = TaxDB(n['dbuser'])
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
-    tax(test_acct)
+    #tax(test_acct)
     
-    #app.run(host="127.0.0.1", threaded=True)
+    app.run(host=xx.xx.xx.xx", threaded=True)
 
