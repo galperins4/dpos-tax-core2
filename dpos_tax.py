@@ -8,7 +8,6 @@ from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
 import sys
-#import request
 
 
 acct = [""]
@@ -105,7 +104,7 @@ def create_buy_records(b):
             price = get_db_price(ts+n['epoch'])
             market_value = round((price * (order_amt/atomic)),2)
             convert_ts = convert_timestamp((ts+n['epoch']))
-            if i[3] in test_acct:
+            if i[3] in acct:
                 classify = "transfer in"
             else:
                 classify = "buy"
