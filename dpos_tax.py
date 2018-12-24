@@ -25,6 +25,8 @@ def tax():
     try:
         # get addresses and exceptions
         req_data = request.get_json()
+        print(req_data)
+        quit()
         acct = req_data['accounts']
         exceptions = req_data["exceptions"]
     
