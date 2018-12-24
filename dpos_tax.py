@@ -8,7 +8,7 @@ from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
 import sys
-iimport requests
+import requests
 
 
 #test_acct = [""]
