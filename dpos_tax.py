@@ -96,7 +96,7 @@ def create_buy_records(b):
     orders = []
 
     for counter, i in enumerate(b):
-        if i[4] not in exceptions and i[3] not in test_acct:
+        if i[4] not in exceptions and i[3] not in acct:
             # add attributes timestamp, total amount, tax lot
             ts = i[0]
             # don't include fee in incoming records
@@ -124,7 +124,7 @@ def create_buy_records(b):
 def create_sell_records(s):
     sells = []
     #map pkeys in test_accouts to addresses so transfers check works
-    tmp_list = map(address_from_public_key,test_acct)
+    tmp_list = map(address_from_public_key,acct)
     check = list(tmp_list)
     for i in s:
         if i[4] not in exceptions and i[3] not in check:
