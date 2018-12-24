@@ -22,6 +22,8 @@ app = Flask(__name__)
 @app.route("/api", methods=['POST'])
 def tax():
     try:
+        global acct
+        global exceptions
         # get addresses and exceptions
         req_data = request.get_json()
         acct = [i for i in req_data['accounts']]
