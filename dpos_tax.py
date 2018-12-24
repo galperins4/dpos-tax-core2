@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from core.taxdb import TaxDB
 from core.psql import DB
 import csv
@@ -8,7 +8,7 @@ from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
 import sys
-import request
+#import request
 
 
 #test_acct = [""]
