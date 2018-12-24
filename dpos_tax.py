@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, request
 from core.taxdb import TaxDB
 from core.psql import DB
 import csv
@@ -7,7 +7,7 @@ import datetime
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
-import sys
+#import sys
 
 
 acct = [""]
@@ -28,9 +28,7 @@ def tax():
         req_data = request.get_json()
         acct = [i for i in req_data['accounts']]
         exceptions = [i for i in req_data["exceptions"]]
-        print(exceptions)
         out_buy, out_sell, out_summary = process_taxes(acct)
-        quit()
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'recipientId']
         summary_cols = ['year', 'income', 'short term', 'long term']
@@ -39,8 +37,7 @@ def tax():
                     "Summary": {"columns": summary_cols, "data":out_summary}
                    }
         return jsonify(acctDict)
-
-        #return render_template('reports.html', buy = out_buy, sell = out_sell) 
+    
     except Exception as e:
         print(e)
         error ={"success":False, "msg":"API Error"}
@@ -98,7 +95,6 @@ def sell(acct):
 def create_buy_records(b):
     orders = []
 
-    print(exceptions)
     for counter, i in enumerate(b):
         if i[4] not in exceptions and i[3] not in acct:
             # add attributes timestamp, total amount, tax lot
@@ -130,7 +126,7 @@ def create_sell_records(s):
     #map pkeys in test_accouts to addresses so transfers check works
     tmp_list = map(address_from_public_key,acct)
     check = list(tmp_list)
-    print(exceptions)
+
     for i in s:
         if i[4] not in exceptions and i[3] not in check:
             # normal sell
@@ -355,7 +351,5 @@ if __name__ == '__main__':
     build_network()
     taxdb = TaxDB(n['dbuser'])
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
-    #tax(test_acct)
-    
     app.run(host="127.0.0.1", threaded=False)
 
