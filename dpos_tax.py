@@ -351,5 +351,5 @@ if __name__ == '__main__':
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
     #tax(test_acct)
     
-    app.run(host="127.0.0.1", threaded=True)
+    app.run(host="127.0.0.1", threaded=False)
 
