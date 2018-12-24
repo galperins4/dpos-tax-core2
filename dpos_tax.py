@@ -26,12 +26,7 @@ def tax():
         # get addresses and exceptions
         req_data = request.get_json()
         acct = [i for i in req_data['accounts']]
-        print(acct)
         exceptions = [i for i in req_data["exceptions"]]
-        print(exceptions)
-        quit()
-    
-    
         out_buy, out_sell, out_summary = process_taxes(acct)
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'recipientId']
