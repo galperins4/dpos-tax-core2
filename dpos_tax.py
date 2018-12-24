@@ -40,10 +40,10 @@ def tax():
         return jsonify(acctDict)
 
         #return render_template('reports.html', buy = out_buy, sell = out_sell) 
-   except Exception as e:
-         print(e)
-         error ={"success":False, "msg":"API Error"}
-         return jsonify(Error=error)
+    except Exception as e:
+        print(e)
+        error ={"success":False, "msg":"API Error"}
+        return jsonify(Error=error)
     
 
 def get_db_price(ts):
