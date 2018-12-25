@@ -16,6 +16,7 @@ exceptions = [""]
 n = None
 taxdb = None
 psql = None
+network = None
 atomic = 100000000
 year = 86400 * 365
 app = Flask(__name__)
@@ -27,6 +28,7 @@ def tax():
         global acct
         global exceptions
         global n
+        global network
         global taxdb
         global psql
                
@@ -276,7 +278,7 @@ def staking_test(d, b):
 def exchange_test(b):
     for i in b:
         addr = i[9]
-        if addr in exchange_acct:
+        if addr in exchange_acct[network]:
             i[5] = "Buy - From Exchange"
             
 
