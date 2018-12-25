@@ -75,7 +75,7 @@ def get_db_price(ts):
 
 
 def buy(acct):
-    s = "buy"
+    s = "Income"
     buy_agg=[]
     for i in acct:
         buys = psql.get_transactions(address_from_public_key(i), s)
@@ -121,9 +121,9 @@ def create_buy_records(b):
             market_value = round((price * (order_amt/atomic)),2)
             convert_ts = convert_timestamp((ts+n['epoch']))
             if i[3] in acct:
-                classify = "transfer in"
+                classify = "Transfer in"
             else:
-                classify = "buy"
+                classify = "Income"
             remain = order_amt
             sender = address_from_public_key(i[3])
 
@@ -195,7 +195,7 @@ def lotting(b,s):
 
                 # update lot - zero out and status
                 j[8] -= lot_quantity
-                j[7] = "lot sold"
+                j[7] = "Lot sold"
 
                 # update remaining sell amount
                 sold_quantity -= lot_quantity
@@ -213,9 +213,9 @@ def lotting(b,s):
                 # update lot and status
                 j[8] -= sold_quantity
                 if j[8] == 0:
-                    j[7] = "lot sold"
+                    j[7] = "Lot sold"
                 else:
-                    j[7] = "lot partially sold"
+                    j[7] = "Lot partially sold"
                 break
 
         # update capital gains for sell record
@@ -296,7 +296,7 @@ def delegate_check(d, check):
 def summarize(b,s):
     year1 = {"income":0, "short":0, "long":0}
     year2 = {"income":0, "short":0, "long":0}
-    income = ['Staking Reward','buy']
+    income = ['Staking Reward','Income']
     twoeighteen = 1514786400
     twonineteen = 1546322400
     
