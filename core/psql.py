@@ -16,7 +16,7 @@ class DB:
 
     def get_transactions(self, account, side):
         try:
-            if side == "buy":
+            if side == "Income":
                 self.cursor.execute(f"""SELECT "timestamp", "amount", "fee", "sender_public_key", "id" FROM transactions WHERE "recipient_id" = '{
                 account}' AND "type" = {0} ORDER BY "timestamp" ASC""")
             else:
