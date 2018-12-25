@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, request
 from core.taxdb import TaxDB
 from core.psql import DB
 import csv
@@ -7,30 +7,54 @@ import datetime
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
-import sys
 
 
-test_acct = [""]
+acct = [""]
 exchange_acct = {"ark":["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK", "AFrPtEmzu6wdVpa2CnRDEKGQQMWgq8nE9V","ARXhacG5MPdT1ehWPTPo8jtfC5NrS29eKS",
-                 "AJbmGnDAx9y91MQCDApyaqZhn6fBvYX9iJ","AcVHEfEmFJkgoyuNczpgyxEA3MZ747DRAu","ANQftoXeWoa9ud9q9dd2ZrUpuKinpdejAJ"]}
+                 "AJbmGnDAx9y91MQCDApyaqZhn6fBvYX9iJ","AcVHEfEmFJkgoyuNczpgyxEA3MZ747DRAu","ANQftoXeWoa9ud9q9dd2ZrUpuKinpdejAJ"]
 exceptions = [""]
+n = None
+taxdb = None
+psql = None
 atomic = 100000000
 year = 86400 * 365
 app = Flask(__name__)
 
 
-#@app.route("/api/<acct>")
-def tax(acct):
-    out_buy, out_sell = process_taxes(acct)
-    buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
-    sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'recipientId']
-    acctDict = {"Buys": {"columns": buy_cols, "data":out_buy},
-                "Sells": {"columns": sell_cols, "data":out_sell}}
-
-
-    #return render_template('reports.html', buy = out_buy, sell = out_sell)
-
-    #return jsonify(acctDict)
+@app.route("/api", methods=['POST'])
+def tax():
+    try:
+        global acct
+        global exceptions
+        global n
+        global taxdb
+        global psql
+               
+        # get addresses and exceptions
+        req_data = request.get_json()
+        acct = [i for i in req_data['accounts']]
+        exceptions = [i for i in req_data["exceptions"]]
+        network = req_data['network']
+        
+        n = use_network(network)
+        build_network()
+        taxdb = TaxDB(n['dbuser'])
+        psql = DB(n['database'], n['dbuser'], n['dbpassword'])
+        
+        out_buy, out_sell, out_summary = process_taxes(acct)
+        buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
+        sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'recipientId']
+        summary_cols = ['year', 'income', 'short term', 'long term']
+        acctDict = {"Buys": {"columns": buy_cols, "data":out_buy},
+                    "Sells": {"columns": sell_cols, "data":out_sell},
+                    "Summary": {"columns": summary_cols, "data":out_summary}
+                   }
+        return jsonify(acctDict)
+    
+    except Exception as e:
+        print(e)
+        error ={"success":False, "msg":"API Error"}
+        return jsonify(Error=error)
     
 
 def get_db_price(ts):
@@ -85,7 +109,7 @@ def create_buy_records(b):
     orders = []
 
     for counter, i in enumerate(b):
-        if i[4] not in exceptions and i[3] not in test_acct:
+        if i[4] not in exceptions and i[3] not in acct:
             # add attributes timestamp, total amount, tax lot
             ts = i[0]
             # don't include fee in incoming records
@@ -94,7 +118,7 @@ def create_buy_records(b):
             price = get_db_price(ts+n['epoch'])
             market_value = round((price * (order_amt/atomic)),2)
             convert_ts = convert_timestamp((ts+n['epoch']))
-            if i[3] in test_acct:
+            if i[3] in acct:
                 classify = "transfer in"
             else:
                 classify = "buy"
@@ -113,8 +137,9 @@ def create_buy_records(b):
 def create_sell_records(s):
     sells = []
     #map pkeys in test_accouts to addresses so transfers check works
-    tmp_list = map(address_from_public_key,test_acct)
+    tmp_list = map(address_from_public_key,acct)
     check = list(tmp_list)
+
     for i in s:
         if i[4] not in exceptions and i[3] not in check:
             # normal sell
@@ -317,7 +342,7 @@ def process_taxes(acct):
     # output to buy and sell csv
     write_csv(buys, sells, agg_years)
 
-    return buys, sells
+    return buys, sells, agg_years
 
   
 def build_network():
@@ -334,12 +359,11 @@ def build_network():
     
     
 if __name__ == '__main__':
-    option = sys.argv[1]
+    '''option = "ark"
     n = use_network(option)
     build_network()
     taxdb = TaxDB(n['dbuser'])
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
-    tax(test_acct)
-    
-    #app.run(host="127.0.0.1", threaded=True)
+    '''
+    app.run(host="127.0.0.1", threaded=False)
 
