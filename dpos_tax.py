@@ -34,7 +34,7 @@ def tax():
                
         # get addresses and exceptions
         req_data = request.get_json()
-        acct = [i for i in req_data['accounts']]
+        acct = [i for i in req_data['addresses']]
         exceptions = [i for i in req_data["exceptions"]]
         network = req_data['network']
         
