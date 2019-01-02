@@ -342,7 +342,7 @@ def process_taxes(acct):
     
 
     # output to buy and sell csv
-    write_csv(buys, sells, agg_years)
+    # write_csv(buys, sells, agg_years)
 
     return buys, sells, agg_years
 
