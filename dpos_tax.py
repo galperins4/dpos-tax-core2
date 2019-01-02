@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from core.taxdb import TaxDB
 from core.psql import DB
 import csv
@@ -20,6 +21,7 @@ network = None
 atomic = 100000000
 year = 86400 * 365
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/api", methods=['POST'])
