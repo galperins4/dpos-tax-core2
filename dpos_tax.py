@@ -11,8 +11,13 @@ from crypto.configuration.network import set_custom_network
 
 
 acct = [""]
-exchange_acct = {"ark":["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK", "AFrPtEmzu6wdVpa2CnRDEKGQQMWgq8nE9V","ARXhacG5MPdT1ehWPTPo8jtfC5NrS29eKS",
-                 "AJbmGnDAx9y91MQCDApyaqZhn6fBvYX9iJ","AcVHEfEmFJkgoyuNczpgyxEA3MZ747DRAu","ANQftoXeWoa9ud9q9dd2ZrUpuKinpdejAJ"]}
+exchange_acct = {"ark":["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK", 
+                        "AFrPtEmzu6wdVpa2CnRDEKGQQMWgq8nE9V",
+                        "ARXhacG5MPdT1ehWPTPo8jtfC5NrS29eKS",
+                        "AJbmGnDAx9y91MQCDApyaqZhn6fBvYX9iJ",
+                        "AcVHEfEmFJkgoyuNczpgyxEA3MZ747DRAu",
+                        "ANQftoXeWoa9ud9q9dd2ZrUpuKinpdejAJ",
+                        "AdA5THjiVFAWhcMo5QyTKF1Y6d39bnPR2F"]}
 exceptions = [""]
 n = None
 taxdb = None
@@ -298,6 +303,7 @@ def delegate_check(d, check):
 def summarize(b,s):
     year1 = {"income":0, "short":0, "long":0}
     year2 = {"income":0, "short":0, "long":0}
+    year3 = {"income":0, "short":0, "long":0}
     income = ['Staking Reward','Income']
     twoeighteen = 1514786400
     twonineteen = 1546322400
@@ -311,7 +317,8 @@ def summarize(b,s):
             if i[5] in income:
                 year2['income']+=i[4]
         else:
-            pass
+            if i[5] in income:
+                year3['income']+=i[4]
       
     for j in s:
         if (j[0]+n['epoch']) < twoeighteen:
@@ -321,11 +328,16 @@ def summarize(b,s):
         elif (j[0]+n['epoch']) < twonineteen:
             year2['short']+=j[5]
             year2['long']+=j[6]
+        else:
+            year3['short']+=j[5]
+            year3['long']+=j[6]  
+           
     
     sum_year1 = ["2017",round(year1['income'],2),round(year1['short'],2),round(year1['long'],2)]
     sum_year2 = ["2018",round(year2['income'],2),round(year2['short'],2),round(year2['long'],2)]
+    sum_year3 = ["2019",round(year3['income'],2),round(year3['short'],2),round(year3['long'],2)]
     
-    years = [sum_year1, sum_year2]
+    years = [sum_year1, sum_year2, sum_year3]
     return years
       
       
