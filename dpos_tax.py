@@ -83,11 +83,7 @@ def get_db_price(ts):
 def buy(acct):
     s = "Income"
     buy_agg=[]
-    for i in acct:
-        print(address_from_public_key(i))
-        quit()
-          
-      
+    for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
         buy_agg += buys
         
