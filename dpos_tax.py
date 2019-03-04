@@ -364,12 +364,12 @@ def process_taxes(acct):
 
   
 def build_network(network):
-    if network = 'ark':
+    if network == 'ark':
         e = ["2017", "3", "21", "13", "00", "00"]
         version = 23
         wif = 170
       
-    elseif network = 'qredit':
+    elseif network == 'qredit':
         e = ["2017", "3", "21", "13", "00", "00"]
         version = 58
         wif = 187
