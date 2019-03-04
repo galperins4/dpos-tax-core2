@@ -51,7 +51,7 @@ def tax():
         build_network(net)
         #quit()
         taxdb = TaxDB(n['dbuser'])
-        quit()
+        #quit()
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
         quit()
         out_buy, out_sell, out_summary = process_taxes(acct)
