@@ -344,14 +344,14 @@ def process_taxes(acct):
     # do processing
     buys = buy(acct)
     sells = sell(acct)
-    print(sells)
-    quit()
     lotting(buys, sells)
     buy_convert(buys)
     sell_convert(sells)
     staking_test(delegates, buys)
     exchange_test(buys)
     agg_years = summarize(buys,sells)
+    print(agg_years)
+    quit()
     
 
     # output to buy and sell csv
