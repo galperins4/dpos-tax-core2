@@ -46,11 +46,10 @@ def tax():
         exceptions = [i for i in req_data["exceptions"]]
         network = req_data['network']
         
-        n = use_network(network)
-        print(n.epoch, n.wif, n.version)
-        quit()
-        
+        n = use_network(network)        
         net = Network(network)
+        print(net.epoch, net.wif, net.version)
+        quit()
         build_network(net)
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
