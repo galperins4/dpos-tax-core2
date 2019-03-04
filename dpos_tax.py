@@ -350,7 +350,6 @@ def process_taxes(acct):
     sell_convert(sells)
     staking_test(delegates, buys)
     exchange_test(buys)
-    quit()
     agg_years = summarize(buys,sells)
     print(agg_years)
     quit()
@@ -383,4 +382,3 @@ def build_network(network):
     
 if __name__ == '__main__':
     app.run(host="127.0.0.1", threaded=False)
-
