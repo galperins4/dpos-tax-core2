@@ -52,7 +52,6 @@ def tax():
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
         out_buy, out_sell, out_summary = process_taxes(acct)
-        quit()
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId']
         summary_cols = ['year', 'income', 'short term', 'long term']
@@ -88,11 +87,11 @@ def buy(acct):
     buy_agg=[]
     for i in acct:
         buys = psql.get_transactions(address_from_public_key(i), s)
+        print(buys)
+        quit()
         buy_agg += buys
-    print(buy_agg)
-    quit()
+        
     buy_orders = create_buy_records(buy_agg)
-    print(buy_orders)
     
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
