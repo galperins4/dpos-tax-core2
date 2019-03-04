@@ -49,7 +49,7 @@ def tax():
         n = use_network(network)        
         net = Network(network)
         build_network(net)
-        quit()
+        #quit()
         taxdb = TaxDB(n['dbuser'])
         quit()
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
