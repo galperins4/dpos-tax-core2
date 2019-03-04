@@ -87,12 +87,11 @@ def buy(acct):
     s = "Income"
     buy_agg=[]
     for i in acct:
-        print(i)
-        quit()
         buys = psql.get_transactions(address_from_public_key(i), s)
         buy_agg += buys
         
     buy_orders = create_buy_records(buy_agg)
+    print(buy_orders)
     
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
