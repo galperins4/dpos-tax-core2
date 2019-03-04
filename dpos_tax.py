@@ -351,9 +351,6 @@ def process_taxes(acct):
     staking_test(delegates, buys)
     exchange_test(buys)
     agg_years = summarize(buys,sells)
-    print(agg_years)
-    quit()
-    
 
     # output to buy and sell csv
     # write_csv(buys, sells, agg_years)
