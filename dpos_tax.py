@@ -45,6 +45,8 @@ def tax():
         acct = [i for i in req_data['addresses']]
         exceptions = [i for i in req_data["exceptions"]]
         network = req_data['network']
+        print(req_data)
+        quit()
         
         n = use_network(network)
         net = Network(network)
