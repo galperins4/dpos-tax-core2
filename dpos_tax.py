@@ -88,7 +88,8 @@ def buy(acct):
         buy_agg += buys
         
     buy_orders = create_buy_records(buy_agg)
-    
+    print(buy_orders)
+    quit()
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
     lot = 1 
@@ -374,7 +375,6 @@ def build_network(network):
     
     t = [int(i) for i in e]
     epoch = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
-    print(epoch,version,wif)
 
     set_custom_network(epoch, version, wif)
     
