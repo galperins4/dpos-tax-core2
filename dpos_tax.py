@@ -369,11 +369,10 @@ def build_network(network):
         version = 23
         wif = 170
       
-    elseif network == 'qredit':
+    elif network == 'qredit':
         e = ["2017", "3", "21", "13", "00", "00"]
         version = 58
-        wif = 187
-      
+        wif = 187  
     else:
         pass
     
