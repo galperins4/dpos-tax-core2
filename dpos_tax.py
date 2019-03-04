@@ -48,8 +48,6 @@ def tax():
         
         n = use_network(network)        
         net = Network(network)
-        print(net.epoch, net.wif, net.version)
-        quit()
         build_network(net)
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
@@ -365,19 +363,14 @@ def process_taxes(acct):
     return buys, sells, agg_years
 
   
-def build_network(n):
-    #e = network[data['network']]['epoch']
-    #e = ["2017", "3", "21", "13", "00", "00"]
-    e = n.epoch
+def build_network(c_net):
+    print(c_net.epoch, c_net.wif, c_net.version)
+    quit()
+    e = c_net.epoch
     t = [int(i) for i in e]
     epoch = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
-    #version = 23
-    #wif = 170
-    version = n.version
-    wif = n.wif
-    
-    #version = network[data['network']]['version']
-    #wif = network[data['network']]['wif']
+    version = c_net.version
+    wif = c_net.wif
     set_custom_network(epoch, version, wif)
     
     
