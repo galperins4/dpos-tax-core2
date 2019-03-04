@@ -375,11 +375,5 @@ def build_network():
     
     
 if __name__ == '__main__':
-    '''option = "ark"
-    n = use_network(option)
-    build_network()
-    taxdb = TaxDB(n['dbuser'])
-    psql = DB(n['database'], n['dbuser'], n['dbpassword'])
-    '''
     app.run(host="127.0.0.1", threaded=False)
 
