@@ -88,8 +88,6 @@ def buy(acct):
         buy_agg += buys
         
     buy_orders = create_buy_records(buy_agg)
-    print(buy_orders)
-    quit()
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
     lot = 1 
@@ -345,6 +343,8 @@ def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
     # do processing
     buys = buy(acct)
+    print(buys)
+    quit()
     sells = sell(acct)
     lotting(buys, sells)
     buy_convert(buys)
