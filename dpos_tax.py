@@ -347,6 +347,7 @@ def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
     # do processing
     buys = buy(acct)
+    print(buys)
     quit()
     sells = sell(acct)
     quit()
