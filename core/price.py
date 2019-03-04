@@ -37,4 +37,4 @@ class Price:
             r = requests.get(url)
             output = [stamp, r.json()['market_data']['current_price']['usd'], r.json()['market_data']['current_price']['eur']]
         except:
-            output = [ts, 0, 0]  
+            output = [stamp, 0, 0]  
