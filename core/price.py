@@ -24,7 +24,6 @@ class Price:
                 output = [ts, 0, 0]
     
         time.sleep(0.25)
-        print(output)
         return output
 
     
@@ -38,3 +37,5 @@ class Price:
             output = [stamp, r.json()['market_data']['current_price']['usd'], r.json()['market_data']['current_price']['eur']]
         except:
             output = [stamp, 0, 0]  
+
+        return output
