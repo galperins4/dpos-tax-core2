@@ -24,7 +24,7 @@ class Price:
                 output = [ts, 0, 0]
     
         time.sleep(0.25)
-
+        print(output)
         return output
 
     
