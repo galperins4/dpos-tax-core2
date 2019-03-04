@@ -374,6 +374,7 @@ def build_network(network):
     
     t = [int(i) for i in e]
     epoch = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
+    print(epoch,version,wif)
 
     set_custom_network(epoch, version, wif)
     
