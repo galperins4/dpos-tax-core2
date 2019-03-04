@@ -5,6 +5,7 @@ from core.taxdb import TaxDB
 from core.psql import DB
 import csv
 import datetime
+from network.network import Network
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
@@ -46,7 +47,8 @@ def tax():
         network = req_data['network']
         
         n = use_network(network)
-        build_network()
+        net = Network(network)
+        build_network(net)
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
         
@@ -361,13 +363,16 @@ def process_taxes(acct):
     return buys, sells, agg_years
 
   
-def build_network():
+def build_network(n):
     #e = network[data['network']]['epoch']
-    e = ["2017", "3", "21", "13", "00", "00"]
+    #e = ["2017", "3", "21", "13", "00", "00"]
+    e = n.epoch
     t = [int(i) for i in e]
     epoch = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
-    version = 23
-    wif = 170
+    #version = 23
+    #wif = 170
+    version = n.version
+    wif = n.wif
     
     #version = network[data['network']]['version']
     #wif = network[data['network']]['wif']
