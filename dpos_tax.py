@@ -87,6 +87,8 @@ def buy(acct):
     s = "Income"
     buy_agg=[]
     for i in acct:
+        print(i)
+        quit()
         buys = psql.get_transactions(address_from_public_key(i), s)
         buy_agg += buys
         
@@ -347,10 +349,7 @@ def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
     # do processing
     buys = buy(acct)
-    print(buys)
-    quit()
     sells = sell(acct)
-    quit()
     lotting(buys, sells)
     buy_convert(buys)
     sell_convert(sells)
