@@ -364,8 +364,6 @@ def process_taxes(acct):
 
   
 def build_network(c_net):
-    print(c_net.epoch, c_net.wif, c_net.version)
-    quit()
     e = c_net.epoch
     t = [int(i) for i in e]
     epoch = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
