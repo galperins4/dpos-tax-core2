@@ -53,6 +53,8 @@ def tax():
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
         
         out_buy, out_sell, out_summary = process_taxes(acct)
+        print(out_buy)
+        quit()
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId']
         summary_cols = ['year', 'income', 'short term', 'long term']
