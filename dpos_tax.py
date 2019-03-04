@@ -345,10 +345,14 @@ def summarize(b,s):
       
 def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
+    print(delegates)
+    quit()
 
     # do processing
     buys = buy(acct)
+    quit()
     sells = sell(acct)
+    quit()
     lotting(buys, sells)
     buy_convert(buys)
     sell_convert(sells)
