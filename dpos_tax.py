@@ -49,11 +49,8 @@ def tax():
         n = use_network(network)        
         net = Network(network)
         build_network(net)
-        #quit()
         taxdb = TaxDB(n['dbuser'])
-        #quit()
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
-        quit()
         out_buy, out_sell, out_summary = process_taxes(acct)
         quit()
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
