@@ -35,6 +35,6 @@ class Price:
         
         try:
             r = requests.get(url)
-            output = stamp, r.json()['market_data']['current_price']['usd'], stamp.json()['market_data']['current_price']['eur']]
+            output = [stamp, r.json()['market_data']['current_price']['usd'], r.json()['market_data']['current_price']['eur']]
         except:
             output = [ts, 0, 0]  
