@@ -11,12 +11,7 @@ class Price:
 
     def get_market_price(self, ts, ticker):
         if ticker in ['XQR', 'PRSN']:
-            output = self.coin_gecko(ts, ticker)
-        
-                      
-                      
-                      
-                      
+            output = self.coin_gecko(ts, ticker)         
         else:
             # set request params
             params = {"fsym": ticker,
