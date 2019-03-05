@@ -18,7 +18,8 @@ exchange_acct = {"ark":["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK",
                         "AcVHEfEmFJkgoyuNczpgyxEA3MZ747DRAu",
                         "ANQftoXeWoa9ud9q9dd2ZrUpuKinpdejAJ",
                         "AdA5THjiVFAWhcMo5QyTKF1Y6d39bnPR2F"],
-                 "qredit": ["QjmG1PUnCh1ip9tZnt24FAQv9eXnsERsYk"]}
+                 "qredit": ["QjmG1PUnCh1ip9tZnt24FAQv9eXnsERsYk"],
+                 "phantom": ["P9atrUx6b8naSSBedmqkvN6aAm1iiJQGbN"]}
 exceptions = [""]
 n = None
 taxdb = None
@@ -363,11 +364,14 @@ def build_network(network):
         e = ["2017", "3", "21", "13", "00", "00"]
         version = 23
         wif = 170
-      
     elif network == 'qredit':
         e = ["2017", "3", "21", "13", "00", "00"]
         version = 58
         wif = 187  
+    elif network == 'phantom':
+        e = ["2019", "1", "3", "12", "00", "00"]
+        version = 55
+        wif = 170
     else:
         pass
     
