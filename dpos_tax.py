@@ -162,9 +162,10 @@ def create_sell_records(s):
         market_value = round((price *(sell_amt/atomic)),2)
         convert_ts = convert_timestamp((ts + n['epoch']))
         receiver = i[3]
+        sold_lot = ''
 
         # create sell record including
-        t = [ts, sell_amt, price, market_value, convert_ts, 0, 0, receiver]
+        t = [ts, sell_amt, price, market_value, convert_ts, 0, 0, receiver, sold_lot]
 
         # append to buy_orders
         sells.append(t)    
@@ -206,6 +207,7 @@ def lotting(b,s):
 
                 # update remaining sell amount
                 sold_quantity -= lot_quantity
+                i[8] += j[0]
 
             # this executes on the final lot to relieve for the sell
             else:
@@ -223,6 +225,7 @@ def lotting(b,s):
                     j[7] = "Lot sold"
                 else:
                     j[7] = "Lot partially sold"
+                i[8] += j[0]
                 break
 
         # update capital gains for sell record
@@ -250,7 +253,7 @@ def write_csv(b,s, a):
 
     s_file = "sells.csv"
     with open(s_file, "w") as output:
-        fieldnames = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'receipientId']
+        fieldnames = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'st-gain', 'lt-gain', 'receipientId', 'lot sold']
         writer = csv.writer(output, lineterminator='\n')
         writer.writerow(fieldnames)
         writer.writerows(s)
