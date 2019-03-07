@@ -365,18 +365,14 @@ def process_taxes(acct):
     buys = buy(acct)
     sells = sell(acct)
     tax_form = lotting(buys, sells)
-    print(tax_form)
-    print(len(tax_form))
-    quit()
     buy_convert(buys)
     sell_convert(sells)
     staking_test(delegates, buys)
     exchange_test(buys)
     agg_years = summarize(buys,sells)
-    #tax_form = form(buys,sells)
 
     # output to buy and sell csv
-    # write_csv(buys, sells, agg_years, tax_form)
+    write_csv(buys, sells, agg_years, tax_form)
 
     return buys, sells, agg_years, tax_form
 
