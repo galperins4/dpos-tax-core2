@@ -366,6 +366,7 @@ def process_taxes(acct):
     sells = sell(acct)
     tax_form = lotting(buys, sells)
     print(tax_form)
+    print(len(tax_form))
     quit()
     buy_convert(buys)
     sell_convert(sells)
