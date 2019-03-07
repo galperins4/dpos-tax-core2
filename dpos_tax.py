@@ -357,30 +357,7 @@ def summarize(b,s):
     years = [sum_year1, sum_year2, sum_year3]
     return years
       
-      
-def tax_form(b,s):
-    tform = []
-    # loop through sells to create form
-    for i in s:
-        # get tax lots sold
-         sold = s[8].split(',')
-         del sold[-1]
-         # check if single lot relieved and process
-         if len(sold) == 1:
-             proceeds = s[1]*s[2]
-             # find the lot to get cost basis from
-             for j in b:
-                 if j[0] == i[0]: # match
-                 cost_basis = s[1]*j[3]
-                 break
-          
-         # process multiple lots relieved
-         else:
-             # get total sell amount to start depleting
-             sell_amount = s[1]
-    
-      
-      
+
 def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
     # do processing
