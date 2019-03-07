@@ -55,7 +55,7 @@ def tax():
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId']
         summary_cols = ['year', 'income', 'short term', 'long term']
-        tax_cols = ['amount', 'token', 'date acquired', 'date dold', 'proceeds', 'cost basis', 'gain or loss']
+        tax_cols = ['amount', 'token', 'date acquired', 'date sold', 'proceeds', 'cost basis', 'gain or loss']
         acctDict = {"Buys": {"columns": buy_cols, "data":out_buy},
                     "Sells": {"columns": sell_cols, "data":out_sell},
                     "Summary": {"columns": summary_cols, "data":out_summary},
