@@ -51,7 +51,7 @@ def tax():
         build_network(network)
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
-        out_buy, out_sell, out_summary = process_taxes(acct)
+        out_buy, out_sell, out_summary, t_form = process_taxes(acct)
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId', 'sold lots']
         summary_cols = ['year', 'income', 'short term', 'long term']
@@ -242,7 +242,7 @@ def gain_classification(sts, bts):
     return gain
 
 
-def write_csv(b,s, a):
+def write_csv(b,s,a,t):
     # buy file
     b_file = "buys.csv"
     with open(b_file, "w") as output:
@@ -355,11 +355,12 @@ def process_taxes(acct):
     staking_test(delegates, buys)
     exchange_test(buys)
     agg_years = summarize(buys,sells)
+    tax_form = form(buys,sells)
 
     # output to buy and sell csv
-    # write_csv(buys, sells, agg_years)
+    # write_csv(buys, sells, agg_years, tax_form)
 
-    return buys, sells, agg_years
+    return buys, sells, agg_years, tax_form
 
   
 def build_network(network):
