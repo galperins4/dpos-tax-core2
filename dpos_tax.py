@@ -344,6 +344,10 @@ def summarize(b,s):
     return years
       
       
+def tax_form(b,s):
+  pass
+      
+      
 def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
     # do processing
