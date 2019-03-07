@@ -178,7 +178,7 @@ def convert_timestamp(ts):
 
 
 def lotting(b,s):
-
+    tform = []
     for i in s:
         # initialize cap gains
         short_cap_gain = 0
@@ -232,6 +232,7 @@ def lotting(b,s):
         i[5] += round(short_cap_gain,2)
         i[6] += round(long_cap_gain,2)
 
+        return tform
 
 def gain_classification(sts, bts):
     if (sts - bts) >= year:
