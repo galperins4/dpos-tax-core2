@@ -217,7 +217,6 @@ def lotting(b,s):
 
                 # update remaining sell amount
                 sold_quantity -= lot_quantity
-                i[8] += (str(j[0])+',')
 
             # this executes on the final lot to relieve for the sell
             else:
@@ -240,7 +239,6 @@ def lotting(b,s):
                     j[7] = "Lot sold"
                 else:
                     j[7] = "Lot partially sold"
-                i[8] += (str(j[0])+',')
                 break
 
         # update capital gains for sell record
