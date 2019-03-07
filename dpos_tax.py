@@ -178,7 +178,7 @@ def convert_timestamp(ts):
   
   
 def short_ts(ts):
-    return datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+    return datetime.datetime.fromtimestamp((ts+n['epoch'])).strftime('%Y-%m-%d')
 
 
 def lotting(b,s):
