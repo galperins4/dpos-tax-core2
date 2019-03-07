@@ -177,7 +177,7 @@ def convert_timestamp(ts):
     return datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
   
   
-def short_ts(ts)
+def short_ts(ts):
     return datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d)
 
 
