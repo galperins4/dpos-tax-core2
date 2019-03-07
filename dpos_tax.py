@@ -191,6 +191,7 @@ def lotting(b,s):
         sold_price = i[2]
 
         for j in b:
+            tmp = [] # initialize
             lot_quantity = j[8]
             # check if lot has been used up to skip and move to next lot
             if lot_quantity == 0:
