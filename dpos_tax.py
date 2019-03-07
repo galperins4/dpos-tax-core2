@@ -51,13 +51,15 @@ def tax():
         build_network(network)
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
-        out_buy, out_sell, out_summary, t_form = process_taxes(acct)
+        out_buy, out_sell, out_summary, out_tax = process_taxes(acct)
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
-        sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId', 'sold lots']
+        sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId']
         summary_cols = ['year', 'income', 'short term', 'long term']
+        tax_cols = ['amount', 'token', 'date acquired', 'date dold', 'proceeds', 'cost basis', 'gain or loss']
         acctDict = {"Buys": {"columns": buy_cols, "data":out_buy},
                     "Sells": {"columns": sell_cols, "data":out_sell},
-                    "Summary": {"columns": summary_cols, "data":out_summary}
+                    "Summary": {"columns": summary_cols, "data":out_summary},
+                    "8949": {"columns": tax_cols, "data":out_tax}
                    }
         return jsonify(acctDict)
     
@@ -162,10 +164,9 @@ def create_sell_records(s):
         market_value = round((price *(sell_amt/atomic)),2)
         convert_ts = convert_timestamp((ts + n['epoch']))
         receiver = i[3]
-        sold_lot = ''
 
         # create sell record including
-        t = [ts, sell_amt, price, market_value, convert_ts, 0, 0, receiver, sold_lot]
+        t = [ts, sell_amt, price, market_value, convert_ts, 0, 0, receiver]
 
         # append to buy_orders
         sells.append(t)    
@@ -378,7 +379,7 @@ def process_taxes(acct):
     agg_years = summarize(buys,sells)
 
     # output to buy and sell csv
-    write_csv(buys, sells, agg_years, tax_form)
+    #write_csv(buys, sells, agg_years, tax_form)
 
     return buys, sells, agg_years, tax_form
 
