@@ -191,7 +191,6 @@ def lotting(b,s):
         sold_price = i[2]
 
         for j in b:
-            tmp = [] # initialize
             lot_quantity = j[8]
             # check if lot has been used up to skip and move to next lot
             if lot_quantity == 0:
@@ -247,7 +246,7 @@ def lotting(b,s):
         i[5] += round(short_cap_gain,2)
         i[6] += round(long_cap_gain,2)
 
-        return tform
+    return tform
 
 def gain_classification(sts, bts):
     if (sts - bts) >= year:
