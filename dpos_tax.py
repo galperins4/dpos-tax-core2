@@ -207,7 +207,7 @@ def lotting(b,s):
 
                 # update tform
                 tmp = [lot_quantity, network, short_ts(j[1]), short_ts(i[0]), 
-                       (sold_price*(lot_quantity/atomic)), (j[3]*(lot_quantity/atomic)) ,cap_gain]
+                       (sold_price*(lot_quantity/atomic)), (j[3]*(lot_quantity/atomic)), cap_gain]
                 tform.append(tmp)
                 # update lot - zero out and status
                 j[8] -= lot_quantity
@@ -227,6 +227,11 @@ def lotting(b,s):
                 else:
                     long_cap_gain += cap_gain
 
+                # update tform
+                tmp = [sold_quantity, network, short_ts(j[1]), short_ts(i[0]), 
+                       (sold_price*(sold_quantity/atomic)), (j[3]*(sold_quantity/atomic)), cap_gain]
+                tform.append(tmp)
+                
                 # update lot and status
                 j[8] -= sold_quantity
                 if j[8] == 0:
@@ -382,6 +387,8 @@ def process_taxes(acct):
     buys = buy(acct)
     sells = sell(acct)
     tax_form = lotting(buys, sells)
+    print(tax_form)
+    quit()
     buy_convert(buys)
     sell_convert(sells)
     staking_test(delegates, buys)
