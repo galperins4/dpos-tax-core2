@@ -372,13 +372,13 @@ def process_taxes(acct):
     # do processing
     buys = buy(acct)
     sells = sell(acct)
-    lotting(buys, sells)
+    tax_form = lotting(buys, sells)
     buy_convert(buys)
     sell_convert(sells)
     staking_test(delegates, buys)
     exchange_test(buys)
     agg_years = summarize(buys,sells)
-    tax_form = form(buys,sells)
+    #tax_form = form(buys,sells)
 
     # output to buy and sell csv
     # write_csv(buys, sells, agg_years, tax_form)
