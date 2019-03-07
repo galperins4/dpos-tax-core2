@@ -345,7 +345,20 @@ def summarize(b,s):
       
       
 def tax_form(b,s):
-  pass
+    tform = []
+    # loop through sells to create form
+    for i in s:
+        # get tax lots sold
+         sold = s[8].split(',')
+         del sold[-1]
+         # check if single lot relieved and process
+         if len(sold) == 1:
+             pass
+          
+         # process multiple lots relieved
+         else:
+             pass
+    
       
       
 def process_taxes(acct):
