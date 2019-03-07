@@ -281,11 +281,11 @@ def write_csv(b,s,a,t):
         writer.writerows(a)
 
     t_file = "8949.csv"
-    with open(a_file,"w") as output:
+    with open(t_file,"w") as output:
         fieldnames = ['Amount', 'Token', 'Date Acquired', 'Date Sold', 'Proceeds', 'Cost Basis', 'Gain or Loss']
         writer = csv.writer(output, lineterminator='\n')
         writer.writerow(fieldnames)
-        writer.writerows(a)
+        writer.writerows(t)
         
 def buy_convert(b):
     for i in b:
