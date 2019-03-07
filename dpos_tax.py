@@ -209,6 +209,7 @@ def lotting(b,s):
                 tmp = [lot_quantity, network, short_ts(j[1]), short_ts(i[0]), 
                        (sold_price*(lot_quantity/atomic)), (j[3]*(lot_quantity/atomic)), cap_gain]
                 tform.append(tmp)
+                
                 # update lot - zero out and status
                 j[8] -= lot_quantity
                 j[7] = "Lot sold"
