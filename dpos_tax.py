@@ -55,7 +55,7 @@ def tax():
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId']
         summary_cols = ['year', 'income', 'short term', 'long term']
-        tax_cols = ['amount', 'token', 'date acquired', 'date sold', 'proceeds', 'cost basis', 'gain or loss']
+        tax_cols = ['amount', 'token', 'date acquired', 'date sold', 'proceeds', 'cost basis', 'gain or loss', 'type']
         acctDict = {"Buys": {"columns": buy_cols, "data":out_buy},
                     "Sells": {"columns": sell_cols, "data":out_sell},
                     "Summary": {"columns": summary_cols, "data":out_summary},
@@ -208,7 +208,7 @@ def lotting(b,s):
 
                 # update tform
                 tmp = [(lot_quantity/atomic), network, short_ts(j[1]), short_ts(i[0]), 
-                       (sold_price*(lot_quantity/atomic)), (j[3]*(lot_quantity/atomic)), round(cap_gain,2)]
+                       (sold_price*(lot_quantity/atomic)), (j[3]*(lot_quantity/atomic)), round(cap_gain,2), gain_type]
                 tform.append(tmp)
                 
                 # update lot - zero out and status
@@ -230,7 +230,7 @@ def lotting(b,s):
 
                 # update tform
                 tmp = [(sold_quantity/atomic), network, short_ts(j[1]), short_ts(i[0]), 
-                       (sold_price*(sold_quantity/atomic)), (j[3]*(sold_quantity/atomic)), round(cap_gain,2)]
+                       (sold_price*(sold_quantity/atomic)), (j[3]*(sold_quantity/atomic)), round(cap_gain,2), gain_type]
                 tform.append(tmp)
                 
                 # update lot and status
@@ -281,7 +281,7 @@ def write_csv(b,s,a,t):
 
     t_file = "8949.csv"
     with open(t_file,"w") as output:
-        fieldnames = ['Amount', 'Token', 'Date Acquired', 'Date Sold', 'Proceeds', 'Cost Basis', 'Gain or Loss']
+        fieldnames = ['Amount', 'Token', 'Date Acquired', 'Date Sold', 'Proceeds', 'Cost Basis', 'Gain or Loss', 'Type']
         writer = csv.writer(output, lineterminator='\n')
         writer.writerow(fieldnames)
         writer.writerows(t)
