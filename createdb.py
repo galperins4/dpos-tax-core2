@@ -12,7 +12,7 @@ import sys
 if __name__ == "__main__":
     option = sys.argv[1]
     n = use_network(option)
-    u = Util()
+    u = Client()
     client = u.get_client(n['port'])
     # check to see if tax.db exists, if not initialize db, etc
     if os.path.exists('tax.db') == False:
