@@ -30,7 +30,7 @@ def get_timestamps(first, ts):
 if __name__ == '__main__':
     option = sys.argv[1]
     n = use_network(option)
-    u = Util()
+    u = Client()
     client = u.get_client(n['port'])
     psql = DB(n['database'], n['dbuser'], n['dbpassword'])
     taxdb = TaxDB(n['dbuser'])
