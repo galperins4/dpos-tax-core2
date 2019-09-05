@@ -3,6 +3,7 @@ from core.psql import DB
 from core.price import Price
 from reference import get_offset, get_timestamps
 from util.config import use_network
+from util.client import Client
 import os.path
 import time
 import sys
@@ -11,6 +12,8 @@ import sys
 if __name__ == "__main__":
     option = sys.argv[1]
     n = use_network(option)
+    u = Util()
+    client = u.get_client(n['port'])
     # check to see if tax.db exists, if not initialize db, etc
     if os.path.exists('tax.db') == False:
         taxdb = TaxDB(n['dbuser'])
@@ -18,9 +21,22 @@ if __name__ == "__main__":
         taxdb.setup()
 
         # setup initial delegates
-        d = psql.get_delegates()
+        '''d = psql.get_delegates()
         addresses = [i[0] for i in d]
-        taxdb.update_delegates(addresses)
+        '''
+        delegates = []
+        start = 1
+        d = client.delegates.all()
+        counter = d['meta']['pageCount']
+        while start <= counter:
+            delist = client.delegates.all(page=start)
+            for j in delist['data']:
+                delegates.append(j['address'])
+            start += 1
+        print(delegates)
+        quit()
+
+        taxdb.update_delegates(delegates)
 
         # get prices
         p = Price()
