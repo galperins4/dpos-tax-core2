@@ -48,8 +48,6 @@ if __name__ == '__main__':
         for j in delist['data']:
             delegates.append(j['address'])
         start += 1
-    print(delegates)
-    quit()
 
     taxdb.update_delegates(delegates)
 
