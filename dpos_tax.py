@@ -328,7 +328,7 @@ def summarize(b,s):
     year1 = {"income":0, "short":0, "long":0}
     year2 = {"income":0, "short":0, "long":0}
     year3 = {"income":0, "short":0, "long":0}
-    year4 - {"income":0, "short":0, "long":0}
+    year4 = {"income":0, "short":0, "long":0}
     income = ['Staking Reward','Income']
     twoeighteen = 1514786400
     twonineteen = 1546322400
