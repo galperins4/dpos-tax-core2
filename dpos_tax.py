@@ -370,7 +370,7 @@ def summarize(b,s):
     sum_year3 = ["2019",round(year3['income'],2),round(year3['short'],2),round(year3['long'],2)]
     sum_year4 = ["2020",round(year4['income'],2),round(year4['short'],2),round(year4['long'],2)]
     
-    years = [sum_year1, sum_year2, sum_year3]
+    years = [sum_year1, sum_year2, sum_year3, sum_year4]
     return years
       
 
