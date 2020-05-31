@@ -49,7 +49,7 @@ if __name__ == '__main__':
             delegates.append(j['address'])
         start += 1
         
-    taxdb.update_delegates(delegates)    
+    taxdb.update_delegates(delegates)
 
     # pull prices from database and get last one
     db_prices = taxdb.get_prices().fetchall()
@@ -64,15 +64,3 @@ if __name__ == '__main__':
     for i in timestamps:
         price = [p.get_market_price(i, n['ticker'])]
         taxdb.update_prices(price)
-
-
-
-
-
-
-
-
-
-
-
-

@@ -55,4 +55,3 @@ def set_custom_network(epoch, database, dbpassword):
     settings.set(section_name, 'dbpassword', str(dbpassword))
     settings.set(section_name, 'ticker', str(ticker))
     settings.set(section_name, 'port', int(port))
-                               

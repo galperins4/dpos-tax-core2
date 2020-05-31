@@ -405,6 +405,10 @@ def build_network(network):
         e = ["2019", "1", "3", "12", "00", "00"]
         version = 55
         wif = 170
+    elif network == 'persona':
+        e = ["2018", "2", "1", "00", "00", "00"]
+        version = 55
+        wif = 80
     else:
         pass
     
