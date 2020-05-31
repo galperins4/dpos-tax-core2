@@ -48,7 +48,7 @@ if __name__ == '__main__':
         for j in delist['data']:
             delegates.append(j['address'])
         start += 1
-
+        
     taxdb.update_delegates(delegates)
 
     # pull prices from database and get last one
