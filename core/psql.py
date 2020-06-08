@@ -34,10 +34,15 @@ class DB:
         except Exception as e:
             print(e)
     
-    def get_multi_tx(self, account, side):
+    def get_multi_tx(self, account, side, universe):
         try:
             acct_multi=[]
             if side == "Income":
+                for i in universe:
+                    for j in i[0]['payments']:
+                        if j['recipientId'] == account:
+                            print(j)
+            quit()
             else:
                 pass
             return acct_multi
