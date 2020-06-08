@@ -43,8 +43,8 @@ class DB:
                         if j['recipientId'] == account:
                             print(j)
             quit()
-            else:
-                pass
+            #else:
+            #    pass
             return acct_multi
         except Exception as e:
             print(e)
