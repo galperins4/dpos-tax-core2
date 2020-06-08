@@ -26,6 +26,11 @@ class DB:
         except Exception as e:
             print(e)
 
+    
+    def get_multi_tx(self,account,side):
+        pass
+    
+    
     def get_delegates(self):
         try:
             self.cursor.execute(f"""SELECT "address" from wallets WHERE "username" is NOT NULL""")
