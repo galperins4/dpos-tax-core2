@@ -88,9 +88,14 @@ def get_db_price(ts):
 def buy(acct):
     s = "Income"
     buy_agg=[]
+    universe = psql.get_all_multi()
+    print(universe)
+    quit()
     for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
+        buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
         buy_agg += buys
+        buy_agg += buys_multi
         
     buy_orders = create_buy_records(buy_agg)
     # sort and reorder lots
