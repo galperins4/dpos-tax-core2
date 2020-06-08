@@ -26,11 +26,25 @@ class DB:
         except Exception as e:
             print(e)
 
+    def get_all_multi(self):
+        # get all multi-payments universe
+        try:
+            self.cursor.execute(f"""SELECT "asset" from transactions WHERE "type" = 6 order by "timestamp" DESC""")
+            return self.cursor.fetchall()
+        except Exception as e:
+            print(e)
     
-    def get_multi_tx(self,account,side):
-        pass
-    
-    
+    def get_multi_tx(self, account, side):
+        try:
+            acct_multi=[]
+            if side == "Income":
+            else:
+                pass
+            return acct_multi
+        except Exception as e:
+            print(e)
+            
+            
     def get_delegates(self):
         try:
             self.cursor.execute(f"""SELECT "address" from wallets WHERE "username" is NOT NULL""")
