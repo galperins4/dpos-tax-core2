@@ -42,9 +42,7 @@ class DB:
                     for j in i[3]['payments']:
                         if j['recipientId'] == account:
                             tmp = (i[0], int(j['amount']), i[1], i[2])
-                            print(tmp)
-                            quit()
-            quit()
+                            acct_multi.append(tmp)
             #else:
             #    pass
             return acct_multi
