@@ -95,9 +95,8 @@ def buy(acct):
         buy_agg += buys
         buy_agg += buys_multi
         
-    print(len(buy_agg))
-    quit()
     buy_orders = create_buy_records(buy_agg)
+    quit()
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
     lot = 1 
