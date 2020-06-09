@@ -89,7 +89,7 @@ def buy(acct):
     s = "Income"
     buy_agg=[]
     universe = psql.get_all_multi()
-    print(universe)
+    print(len(universe))
     quit()
     for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
