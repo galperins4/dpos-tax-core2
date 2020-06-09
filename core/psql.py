@@ -43,8 +43,8 @@ class DB:
                         if j['recipientId'] == account:
                             tmp = (i[0], int(j['amount']), i[1], i[2])
                             acct_multi.append(tmp)
-            #else:
-            #    pass
+            else:
+                pass
             return acct_multi
         except Exception as e:
             print(e)
