@@ -92,8 +92,7 @@ def buy(acct):
     for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
         print("buys")
-        print(buys)
-        quit()
+        print(len(buys))
         buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
         print("multis")
         print(len(buys_multi))
