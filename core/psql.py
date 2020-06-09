@@ -41,7 +41,7 @@ class DB:
                 for i in universe:
                     for j in i[3]['payments']:
                         if j['recipientId'] == account:
-                            tmp = (i[0], int(j['amount']), i[1], i[2])
+                            tmp = (i[0], int(j['amount']), i[1], i[2], i[4])
                             acct_multi.append(tmp)
             else:
                 pass
