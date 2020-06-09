@@ -91,14 +91,12 @@ def buy(acct):
     universe = psql.get_all_multi()
     for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
-        print("buys")
-        print(len(buys))
         buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
-        print("multis")
-        print(len(buys_multi))
-        quit()
         buy_agg += buys
         buy_agg += buys_multi
+        
+    print(len(buy_agg))
+    quit()
         
     buy_orders = create_buy_records(buy_agg)
     # sort and reorder lots
