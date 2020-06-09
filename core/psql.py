@@ -41,8 +41,8 @@ class DB:
                 for i in universe:
                     for j in i[3]['payments']:
                         if j['recipientId'] == account:
-                            print(j)
-                            print(i)
+                            tmp = (i[0], j['amount'], i[2], i[3]
+                            print(tmp)
                             quit()
             quit()
             #else:
