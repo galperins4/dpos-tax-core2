@@ -39,8 +39,6 @@ class DB:
             acct_multi=[]
             if side == "Income":
                 for i in universe:
-                    print(i)
-                    quit()
                     for j in i[0]['payments']:
                         if j['recipientId'] == account:
                             print(j)
