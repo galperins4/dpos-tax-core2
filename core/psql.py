@@ -42,6 +42,8 @@ class DB:
                     for j in i[0]['payments']:
                         if j['recipientId'] == account:
                             print(j)
+                            print(i)
+                            quit()
             quit()
             #else:
             #    pass
