@@ -44,7 +44,8 @@ class DB:
                             tmp = (i[0], int(j['amount']), i[1], i[2], i[4])
                             acct_multi.append(tmp)
             else:
-                pass
+                for i in universe:
+                    pass
             return acct_multi
         except Exception as e:
             print(e)
