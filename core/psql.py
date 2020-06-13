@@ -44,8 +44,12 @@ class DB:
                             tmp = (i[0], int(j['amount']), i[1], i[2], i[4])
                             acct_multi.append(tmp)
             else:
+                # need to figure out how to get fee and divide across transactions
                 for i in universe:
-                    pass
+                    if i[2] == account:
+                        for j in i[3]['payments']:
+                            tmp = (i[0], int(j['amount'], i[1], j['recipientId'], i[4])
+                            acct_multi.append(tmp)            
             return acct_multi
         except Exception as e:
             print(e)
