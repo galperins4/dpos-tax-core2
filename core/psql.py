@@ -21,7 +21,7 @@ class DB:
                 account}' AND "type" = {0} ORDER BY "timestamp" ASC""")
             else:
                 self.cursor.execute(f"""SELECT "timestamp", "amount", "fee", "recipient_id", "id" FROM transactions WHERE "sender_public_key" = '{
-                account}'ORDER BY "timestamp" ASC""")
+                account}' AND "type" <> {6} ORDER BY "timestamp" ASC""")
             return self.cursor.fetchall()
         except Exception as e:
             print(e)
