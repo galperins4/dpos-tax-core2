@@ -51,7 +51,7 @@ class DB:
                             tmp = (i[0], int(j['amount']), i[1], j['recipientId'], i[4])
                             #print(tmp)
                             acct_multi.append(tmp)            
-                print(len(account_multi))
+                print(len(acct_multi))
                 quit()
             return acct_multi
         except Exception as e:
