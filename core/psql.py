@@ -48,6 +48,10 @@ class DB:
                 for i in universe:
                     if i[2] == account:
                         multi_count = len(i[3]['payments'])
+                        print("total fee", i[1])
+                        fee = i[1] / multi_count
+                        print("fee per tx", fee)
+                        quit()
                         for j in i[3]['payments']:
                             tmp = (i[0], int(j['amount']), i[1], j['recipientId'], i[4])
                             #print(tmp)
