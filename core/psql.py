@@ -49,8 +49,9 @@ class DB:
                     if i[2] == account:
                         for j in i[3]['payments']:
                             tmp = (i[0], int(j['amount']), i[1], j['recipientId'], i[4])
-                            print(tmp)
+                            #print(tmp)
                             acct_multi.append(tmp)            
+                print(len(account_multi))
                 quit()
             return acct_multi
         except Exception as e:
