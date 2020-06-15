@@ -47,7 +47,7 @@ class DB:
                 # need to figure out how to get fee and divide across transactions
                 for i in universe:
                     if i[2] == account:
-                        print(len(i[3]['payments']))
+                        multi_count = len(i[3]['payments'])
                         for j in i[3]['payments']:
                             tmp = (i[0], int(j['amount']), i[1], j['recipientId'], i[4])
                             #print(tmp)
