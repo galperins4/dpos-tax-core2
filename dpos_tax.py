@@ -20,7 +20,8 @@ exchange_acct = {"ark":["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK",
                         "AdA5THjiVFAWhcMo5QyTKF1Y6d39bnPR2F"],
                  "qredit": ["QjmG1PUnCh1ip9tZnt24FAQv9eXnsERsYk"],
                  "phantom": ["P9atrUx6b8naSSBedmqkvN6aAm1iiJQGbN"],
-                 "persona": ["P8jWh7gWPYNZe4N9meaVdsX4bpN129KT5f"]}
+                 "persona": ["P8jWh7gWPYNZe4N9meaVdsX4bpN129KT5f"],
+                 "compendia: ["cmu7jKQLYntoT9zFAhL1MqL5r6pB1Ds9Ea"]}
 exceptions = [""]
 n = None
 taxdb = None
