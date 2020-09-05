@@ -416,6 +416,10 @@ def build_network(network):
         e = ["2018", "2", "1", "00", "00", "00"]
         version = 55
         wif = 80
+    elif network == 'compendia':
+        e = ["2020", "8", "21", "16", "00", "00"]
+        version = 88
+        wif = 171         
     else:
         pass
     
