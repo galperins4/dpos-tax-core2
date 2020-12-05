@@ -7,7 +7,7 @@ class Price:
     def __init__(self):
         self.tsyms = 'USD,EUR'
         self.url = 'https://min-api.cryptocompare.com/data/pricehistorical'
-        self.tick_convert = {'PRSN':'persona', 'XQR':'qredit', 'XPH':'phantom', 'BIND':'compendia'}
+        self.tick_convert = {'PRSN':'persona', 'XQR':'qredit', 'XPH':'phantom', 'BIND':'nos'}
 
     def get_market_price(self, ts, ticker):
         if ticker in ['XQR', 'PRSN', 'XPH', 'BIND']:
