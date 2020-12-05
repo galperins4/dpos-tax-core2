@@ -10,7 +10,7 @@ class Price:
         self.tick_convert = {'PRSN':'persona', 'XQR':'qredit', 'XPH':'phantom', 'BIND':'compendia'}
 
     def get_market_price(self, ts, ticker):
-        if ticker in ['XQR', 'PRSN', 'XPH']:
+        if ticker in ['XQR', 'PRSN', 'XPH', 'BIND']:
             output = self.coin_gecko(ts, ticker)         
         else:
             # set request params
