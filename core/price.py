@@ -23,7 +23,7 @@ class Price:
             except:
                 output = [ts, 0, 0]
     
-        time.sleep(0.25)
+        time.sleep(1)
         return output
 
     
