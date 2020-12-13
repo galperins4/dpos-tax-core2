@@ -336,14 +336,15 @@ def summarize(b,s):
     year2 = {"income":0, "short":0, "long":0}
     year3 = {"income":0, "short":0, "long":0}
     year4 = {"income":0, "short":0, "long":0}
+    year5 = {"income":0, "short":0, "long":0}
     income = ['Staking Reward','Income']
     twoeighteen = 1514786400
     twonineteen = 1546322400
     twotwenty = 1577858400
+    twotwentyone = 1609480800
     
     for i in b:
         if (i[1]+n['epoch']) < twoeighteen:
-            #2017 income
             if i[5] in income:
                 year1['income']+=i[4] 
         elif (i[1]+n['epoch']) < twonineteen:
@@ -352,9 +353,12 @@ def summarize(b,s):
         elif (i[1]+n['epoch']) < twotwenty:
             if i[5] in income:
                 year3['income']+=i[4]
-        else:
+        elif (i[1]+n['epoch']) < twotwentyone:
             if i[5] in income:
                 year4['income']+=i[4]
+        else:
+            if i[5] in income:
+                year5['income']+=i[4]
       
     for j in s:
         if (j[0]+n['epoch']) < twoeighteen:
@@ -367,17 +371,21 @@ def summarize(b,s):
         elif (j[0]+n['epoch']) < twotwenty:
             year3['short']+=j[5]
             year3['long']+=j[6]
-        else:
+        elif (j[0]+n['epoch']) < twotwentyone:
             year4['short']+=j[5]
-            year4['long']+=j[6]  
+            year4['long']+=j[6]
+        else:
+            year5['short']+=j[5]
+            year5['long']+=j[6]  
            
     
     sum_year1 = ["2017",round(year1['income'],2),round(year1['short'],2),round(year1['long'],2)]
     sum_year2 = ["2018",round(year2['income'],2),round(year2['short'],2),round(year2['long'],2)]
     sum_year3 = ["2019",round(year3['income'],2),round(year3['short'],2),round(year3['long'],2)]
     sum_year4 = ["2020",round(year4['income'],2),round(year4['short'],2),round(year4['long'],2)]
+    sum_year5 = ["2021",round(year5['income'],2),round(year5['short'],2),round(year5['long'],2)]
     
-    years = [sum_year1, sum_year2, sum_year3, sum_year4]
+    years = [sum_year1, sum_year2, sum_year3, sum_year4, sum_year5]
     return years
       
 
