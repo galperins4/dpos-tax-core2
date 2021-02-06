@@ -8,6 +8,7 @@ class Price:
         self.tsyms = 'USD,EUR'
         self.url = 'https://min-api.cryptocompare.com/data/pricehistorical'
         self.tick_convert = {'PRSN':'persona', 'XQR':'qredit', 'XPH':'phantom', 'BIND':'nos'}
+        self.api_key=''
 
     def get_market_price(self, ts, ticker):
         if ticker in ['XQR', 'PRSN', 'XPH', 'BIND']:
@@ -16,7 +17,8 @@ class Price:
             # set request params
             params = {"fsym": ticker,
                       "tsyms": self.tsyms,
-                      "ts": ts}
+                      "ts": ts,
+                      "api_key": self.api_key}
             try:
                 r = requests.get(self.url, params=params)
                 output = [ts, r.json()[ticker]['USD'], r.json()[ticker]['EUR']]
