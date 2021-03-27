@@ -21,7 +21,8 @@ exchange_acct = {"ark":["AUexKjGtgsSpVzPLs6jNMM6vJ6znEVTQWK",
                  "qredit": ["QjmG1PUnCh1ip9tZnt24FAQv9eXnsERsYk"],
                  "phantom": ["P9atrUx6b8naSSBedmqkvN6aAm1iiJQGbN"],
                  "persona": ["P8jWh7gWPYNZe4N9meaVdsX4bpN129KT5f"],
-                 "compendia": ["caywmURxBNbEbpoP1v4BNmimWzmFDycXYm"]}
+                 "compendia": ["caywmURxBNbEbpoP1v4BNmimWzmFDycXYm"],
+                 "hydra": ["hcftLUTpLjtWJi44uJYNpdL5j1QPuLKqVH"]}
 exceptions = [""]
 n = None
 taxdb = None
@@ -420,10 +421,10 @@ def build_network(network):
         e = ["2019", "1", "3", "12", "00", "00"]
         version = 55
         wif = 170
-    elif network == 'persona':
-        e = ["2018", "2", "1", "00", "00", "00"]
-        version = 55
-        wif = 80
+    elif network == 'hydra':
+        e = ["2019", "9", "1", "00", "00", "00"]
+        version = 100
+        wif = 111
     elif network == 'compendia':
         e = ["2020", "8", "21", "16", "00", "00"]
         version = 88
