@@ -7,11 +7,11 @@ class Price:
     def __init__(self):
         self.tsyms = 'USD,EUR'
         self.url = 'https://min-api.cryptocompare.com/data/pricehistorical'
-        self.tick_convert = {'PRSN':'persona', 'XQR':'qredit', 'XPH':'phantom', 'BIND':'nos'}
+        self.tick_convert = {'PRSN':'persona', 'XQR':'qredit', 'XPH':'phantom', 'BIND':'nos', 'HYD':'hyd'}
         self.api_key=''
 
     def get_market_price(self, ts, ticker):
-        if ticker in ['XQR', 'PRSN', 'XPH', 'BIND']:
+        if ticker in ['XQR', 'PRSN', 'XPH', 'BIND','HYD']:
             output = self.coin_gecko(ts, ticker)         
         else:
             # set request params
