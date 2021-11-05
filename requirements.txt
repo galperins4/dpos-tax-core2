@@ -2,3 +2,4 @@ psycopg2
 flask
 arkecosystem-crypto
 arkecosystem-client
+waitress
