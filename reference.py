@@ -36,9 +36,6 @@ if __name__ == '__main__':
     taxdb = TaxDB(n['dbuser'])
 
     # update delegate list
-    '''d = psql.get_delegates()
-    addresses = [i[0] for i in d]
-    '''
     delegates = []
     start = 1
     d = client.delegates.all()
