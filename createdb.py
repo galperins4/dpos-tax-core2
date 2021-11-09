@@ -21,9 +21,6 @@ if __name__ == "__main__":
         taxdb.setup()
 
         # setup initial delegates
-        '''d = psql.get_delegates()
-        addresses = [i[0] for i in d]
-        '''
         delegates = []
         start = 1
         d = client.delegates.all()
