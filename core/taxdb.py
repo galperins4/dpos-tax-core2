@@ -91,3 +91,17 @@ class TaxDB:
 
     def single_delegate(self, addr):
         return self.cursor.execute("SELECT * FROM delegates WHERE address = '{addr}'")
+    
+    
+    def storeMulti(self, universe):
+        newMulti=[]
+
+        for multi in universe:
+            self.cursor.execute("SELECT id FROM multi WHERE id = ?", (multi[4],))
+
+            if self.cursor.fetchone() is None:
+                newMulti.append((multi[0], multi[1], multi[2], multi[3], multi[4],))
+
+        self.executemany("INSERT INTO blocks VALUES (?,?,?,?,?)", newMulti)
+
+        self.commit()
