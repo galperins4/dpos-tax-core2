@@ -62,6 +62,3 @@ if __name__ == '__main__':
         price = [p.get_market_price(i, n['ticker'])]
         taxdb.update_prices(price)
         
-   # get all multi transactions for reference (to speed up processing) and add differential
-        universe = psql.get_all_multi()
-        taxdb.store_multi(universe)
