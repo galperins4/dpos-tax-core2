@@ -105,6 +105,9 @@ def buy(acct):
         buy_agg += buys
         buy_agg += buys_multi
         
+    print(buy_multi)
+    quit()
+        
     tic_y = time.perf_counter()
     print(f"Get all account buy transactions in {tic_x - tic_y:0.4f} seconds")
     
