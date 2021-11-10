@@ -103,6 +103,8 @@ def buy(acct):
         buys = psql.get_transactions(address_from_public_key(i), s)
         buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
         test = psql.get_acct_multi(address_from_public_key(i))
+        print(test)
+        quit()
         test_multi = psql.get_multi_tx(address_from_public_key(i), s, test)
         buy_agg += buys
         buy_agg += buys_multi
