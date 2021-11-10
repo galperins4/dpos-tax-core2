@@ -66,6 +66,8 @@ def tax():
                     "Summary": {"columns": summary_cols, "data":out_summary},
                     "8949": {"columns": tax_cols, "data":out_tax}
                    }
+        print(acctDict['Summary'])
+        quit()
         return jsonify(acctDict)
     
     except Exception as e:
