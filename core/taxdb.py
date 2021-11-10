@@ -43,6 +43,9 @@ class TaxDB:
 
         self.cursor.execute(
             "CREATE TABLE IF NOT EXISTS delegates (address varchar(64) )")
+        
+        self.cursor.execute(
+            "CREATE TABLE IF NOT EXISTS multi (timestamp int, fee bigint, sender_public_key varchar(66), asset json, id varchar(64) )")
 
         self.connection.commit()
 
