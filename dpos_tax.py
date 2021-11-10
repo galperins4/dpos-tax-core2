@@ -5,6 +5,7 @@ from core.taxdb import TaxDB
 from core.psql import DB
 import csv
 import datetime
+import time
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
@@ -392,16 +393,42 @@ def summarize(b,s):
       
 
 def process_taxes(acct):
+    tic_a = time.perf_counter()
     delegates = taxdb.get_delegates().fetchall()
-    # do processing
+    tic_b = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_a - tic_b:0.4f} seconds")
+    
     buys = buy(acct)
+    tic_c = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_b - tic_c:0.4f} seconds")
+    
     sells = sell(acct)
+    tic_d = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_c - tic_d:0.4f} seconds")
+    
     tax_form = lotting(buys, sells)
+    tic_e = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_d - tic_e:0.4f} seconds")
+    
     buy_convert(buys)
+    tic_f = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_e - tic_f:0.4f} seconds")
+    
     sell_convert(sells)
+    tic_g = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_f - tic_g:0.4f} seconds")
+    
     staking_test(delegates, buys)
+    tic_h = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_g - tic_h:0.4f} seconds")
+    
     exchange_test(buys)
+    tic_i = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_h - tic_i:0.4f} seconds")
+    
     agg_years = summarize(buys,sells)
+    tic_j = time.perf_counter()
+    print(f"Downloaded the tutorial in {tic_i - tic_j:0.4f} seconds")
 
     # output to buy and sell csv
     #write_csv(buys, sells, agg_years, tax_form)
@@ -436,8 +463,7 @@ def build_network(network):
     t = [int(i) for i in e]
     epoch = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
 
-    set_custom_network(epoch, version, wif)
-    
+    set_custom_network(epoch, version, wif)   
     
 if __name__ == '__main__':
     #app.run(host="127.0.0.1", threaded=False)
