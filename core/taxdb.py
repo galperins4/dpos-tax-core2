@@ -93,7 +93,7 @@ class TaxDB:
         return self.cursor.execute("SELECT * FROM delegates WHERE address = '{addr}'")
     
     
-    def storeMulti(self, universe):
+    def store_multi(self, universe):
         newMulti=[]
 
         for multi in universe:
