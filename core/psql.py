@@ -38,8 +38,7 @@ class DB:
     def get_acct_multi(self, account):
         # only grab multi-payments associated with account
         try:
-            self.cursor.execute(f"""SELECT "timestamp", "fee", "sender_public_key", "asset", "id" FROM transactions WHERE asset::jsonb @> '{
-            "payments": [{"recipientId":'{account}']}'::jsonb order by "timestamp" DESC""")
+            self.cursor.execute(f"""SELECT "timestamp", "fee", "sender_public_key", "asset", "id" FROM transactions WHERE asset::jsonb @> '{"payments": [{"recipientId":'{account}']}'::jsonb order by "timestamp" DESC""")
             return self.cursor.fetchall()
         except Exception as e:
             print(e)
