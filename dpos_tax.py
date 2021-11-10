@@ -105,7 +105,8 @@ def buy(acct):
         buy_agg += buys
         buy_agg += buys_multi
         
-    print(buys_multi)
+    for i in buys_multi:
+        print(i)
     quit()
         
     tic_y = time.perf_counter()
