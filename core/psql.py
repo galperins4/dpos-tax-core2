@@ -34,6 +34,26 @@ class DB:
         except Exception as e:
             print(e)
     
+   
+    def get_acct_multi(self, account):
+        # only grab multi-payments associated with account
+        try:
+            self.cursor.execute(f"""SELECT "timestamp", "fee", "sender_public_key", "asset", "id" FROM transactions WHERE asset::jsonb @> '{
+            "payments": [{"recipientId":'{account}']}'::jsonb order by "timestamp" DESC""")
+            return self.cursor.fetchall()
+ 
+        '''
+        try:
+            acct_multi=[]
+            if side == "Income":
+                pass
+            else:
+                pass
+            return acct_multi
+        '''
+        except Exception as e:
+            print(e)
+        
     def get_multi_tx(self, account, side, universe):
         try:
             acct_multi=[]
