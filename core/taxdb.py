@@ -96,12 +96,12 @@ class TaxDB:
     def store_multi(self, universe):
         newMulti=[]
 
-        for multi in universe:
-            self.cursor.execute("SELECT id FROM multi WHERE id = ?", (multi[4],))
+        for m in universe:
+            self.cursor.execute("SELECT id FROM multi WHERE id = ?", (m[4],))
 
             if self.cursor.fetchone() is None:
-                newMulti.append((multi[0], multi[1], multi[2], multi[3], multi[4],))
+                newMulti.append((m[0], m[1], m[2], m[3], m[4],))
 
-        self.executemany("INSERT INTO blocks VALUES (?,?,?,?,?)", newMulti)
+        self.executemany("INSERT INTO multi VALUES (?,?,?,?,?)", newMulti)
 
         self.commit()
