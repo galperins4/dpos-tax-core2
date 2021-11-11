@@ -44,9 +44,6 @@ class TaxDB:
         self.cursor.execute(
             "CREATE TABLE IF NOT EXISTS delegates (address varchar(64) )")
         
-        self.cursor.execute(
-            "CREATE TABLE IF NOT EXISTS multi (timestamp int, fee bigint, sender_public_key varchar(66), asset json, id varchar(64) )")
-
         self.connection.commit()
 
 
@@ -92,16 +89,3 @@ class TaxDB:
     def single_delegate(self, addr):
         return self.cursor.execute("SELECT * FROM delegates WHERE address = '{addr}'")
     
-    
-    def store_multi(self, universe):
-        newMulti=[]
-
-        for m in universe:
-            self.cursor.execute("SELECT id FROM multi WHERE id = ?", (m[4],))
-
-            if self.cursor.fetchone() is None:
-                newMulti.append((m[0], m[1], m[2], m[3], m[4],))
-
-        self.executemany("INSERT INTO multi VALUES (?,?,?,?,?)", newMulti)
-
-        self.commit()
