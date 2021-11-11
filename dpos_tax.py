@@ -40,7 +40,7 @@ CORS(app)
 @app.route("/api", methods=['POST'])
 def tax():
     try:
-        global acct
+        global acct_converted
         global exceptions
         global n
         global network
