@@ -59,7 +59,7 @@ def tax():
         # convert addresses to public keys
         u = Client()
         client = u.get_client(n['port'])
-        acct = [client.wallets.get(i)['data']['publicKey'] for i in acct]
+        acct = [client.wallets.get(i)['data']['publicKey'] for i in tmp_acct]
         
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
