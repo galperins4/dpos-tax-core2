@@ -121,8 +121,13 @@ def sell(acct):
     for i in acct:
         sells = psql.get_transactions(i, s)
         sells_multi = psql.get_multi_tx(i, s, universe)
+        #multi_universe = psql.get_acct_multi(i), s)
+        #buys_multi_test = psql.get_multi_tx(i), s, multi_universe)
         sell_agg += sells
         sell_agg += sells_multi
+    
+    for i in sell_agg:
+        print(i)
     
     sell_orders = create_sell_records(sell_agg)
     
