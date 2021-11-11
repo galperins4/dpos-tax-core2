@@ -9,6 +9,7 @@ import time
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
+from util.client import Client
 from waitress import serve
 
 
@@ -39,7 +40,7 @@ CORS(app)
 @app.route("/api", methods=['POST'])
 def tax():
     try:
-        global acct
+        global acct_converted
         global exceptions
         global n
         global network
@@ -48,12 +49,18 @@ def tax():
                
         # get addresses and exceptions
         req_data = request.get_json()
-        acct = [i for i in req_data['addresses']]
+        tmp_acct = [i for i in req_data['addresses']]
         exceptions = [i for i in req_data["exceptions"]]
         network = req_data['network']
         
         n = use_network(network)        
         build_network(network)
+        
+        # convert addresses to public keys
+        u = Client()
+        client = u.get_client(n['port'])
+        acct = [client.wallets.get(i)['data']['publicKey'] for i in tmp_acct]
+        
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
         out_buy, out_sell, out_summary, out_tax = process_taxes(acct)
@@ -397,42 +404,42 @@ def summarize(b,s):
       
 
 def process_taxes(acct):
-    #tic_a = time.perf_counter()
+    tic_a = time.perf_counter()
     delegates = taxdb.get_delegates().fetchall()
-    #tic_b = time.perf_counter()
-    #print(f"Fetch Delegates in {tic_a - tic_b:0.4f} seconds")
+    tic_b = time.perf_counter()
+    print(f"Fetch Delegates in {tic_a - tic_b:0.4f} seconds")
     
     buys = buy(acct)
-    #tic_c = time.perf_counter()
-    #print(f"Get buys in {tic_b - tic_c:0.4f} seconds")
+    tic_c = time.perf_counter()
+    print(f"Get buys in {tic_b - tic_c:0.4f} seconds")
     
     sells = sell(acct)
-    #tic_d = time.perf_counter()
-    #print(f"Get sells in {tic_c - tic_d:0.4f} seconds")
+    tic_d = time.perf_counter()
+    print(f"Get sells in {tic_c - tic_d:0.4f} seconds")
     
     tax_form = lotting(buys, sells)
-    #tic_e = time.perf_counter()
-    #print(f"Lot and create tax form in {tic_d - tic_e:0.4f} seconds")
+    tic_e = time.perf_counter()
+    print(f"Lot and create tax form in {tic_d - tic_e:0.4f} seconds")
     
     buy_convert(buys)
-    #tic_f = time.perf_counter()
-    #print(f"Convert buy atomic in {tic_e - tic_f:0.4f} seconds")
+    tic_f = time.perf_counter()
+    print(f"Convert buy atomic in {tic_e - tic_f:0.4f} seconds")
     
     sell_convert(sells)
-    #tic_g = time.perf_counter()
-    #print(f"Convert sell atomic in {tic_f - tic_g:0.4f} seconds")
+    tic_g = time.perf_counter()
+    print(f"Convert sell atomic in {tic_f - tic_g:0.4f} seconds")
     
     staking_test(delegates, buys)
-    #tic_h = time.perf_counter()
-    #print(f"Perform staking test in {tic_g - tic_h:0.4f} seconds")
+    tic_h = time.perf_counter()
+    print(f"Perform staking test in {tic_g - tic_h:0.4f} seconds")
     
     exchange_test(buys)
-    #tic_i = time.perf_counter()
-    #print(f"Perform exchange test in {tic_h - tic_i:0.4f} seconds")
+    tic_i = time.perf_counter()
+    print(f"Perform exchange test in {tic_h - tic_i:0.4f} seconds")
     
     agg_years = summarize(buys,sells)
-    #tic_j = time.perf_counter()
-    #print(f"Summarize buys and sells in {tic_i - tic_j:0.4f} seconds")
+    tic_j = time.perf_counter()
+    print(f"Summarize buys and sells in {tic_i - tic_j:0.4f} seconds")
 
     # output to buy and sell csv
     #write_csv(buys, sells, agg_years, tax_form)
