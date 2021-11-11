@@ -96,18 +96,24 @@ def buy(acct):
     s = "Income"
     buy_agg=[]
     universe = psql.get_all_multi()
+    test_universe = psql.get_acct_multi(address_from_public_key(i), s)
     tic_x = time.perf_counter()
     print(f"Get all multi transactions in {tic_a - tic_x:0.4f} seconds")
     
     for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
         buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
+        buys_multi_test = psql.get_multi_tx(address_from_public_key(i), s, test_universe)
         buy_agg += buys
         buy_agg += buys_multi
-        
+    
+    print("old")
     for i in buys_multi:
         print(i)
 
+    print("new")
+    for i in buys_multi_test:
+        print(i)
     quit()
         
     tic_y = time.perf_counter()
