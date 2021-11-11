@@ -43,7 +43,7 @@ class TaxDB:
 
         self.cursor.execute(
             "CREATE TABLE IF NOT EXISTS delegates (address varchar(64) )")
-
+        
         self.connection.commit()
 
 
@@ -88,3 +88,4 @@ class TaxDB:
 
     def single_delegate(self, addr):
         return self.cursor.execute("SELECT * FROM delegates WHERE address = '{addr}'")
+    

@@ -5,6 +5,7 @@ from core.taxdb import TaxDB
 from core.psql import DB
 import csv
 import datetime
+import time
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
@@ -65,6 +66,7 @@ def tax():
                     "Summary": {"columns": summary_cols, "data":out_summary},
                     "8949": {"columns": tax_cols, "data":out_tax}
                    }
+        
         return jsonify(acctDict)
     
     except Exception as e:
@@ -89,16 +91,19 @@ def get_db_price(ts):
 
 
 def buy(acct):
+    tic_a = time.perf_counter()
     s = "Income"
     buy_agg=[]
-    universe = psql.get_all_multi()
+    
     for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
-        buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
+        multi_universe = psql.get_acct_multi(address_from_public_key(i), s)
+        buys_multi = psql.get_multi_tx(address_from_public_key(i), s, multi_universe)
         buy_agg += buys
         buy_agg += buys_multi
-        
+    
     buy_orders = create_buy_records(buy_agg)
+    
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
     lot = 1 
@@ -111,10 +116,10 @@ def buy(acct):
 def sell(acct):
     s = "sell"
     sell_agg=[]
-    universe = psql.get_all_multi()
     for i in acct:
         sells = psql.get_transactions(i, s)
-        sells_multi = psql.get_multi_tx(i, s, universe)
+        multi_universe = psql.get_acct_multi(i, s)
+        sells_multi = psql.get_multi_tx(i, s, multi_universe)
         sell_agg += sells
         sell_agg += sells_multi
     
@@ -392,16 +397,42 @@ def summarize(b,s):
       
 
 def process_taxes(acct):
+    #tic_a = time.perf_counter()
     delegates = taxdb.get_delegates().fetchall()
-    # do processing
+    #tic_b = time.perf_counter()
+    #print(f"Fetch Delegates in {tic_a - tic_b:0.4f} seconds")
+    
     buys = buy(acct)
+    #tic_c = time.perf_counter()
+    #print(f"Get buys in {tic_b - tic_c:0.4f} seconds")
+    
     sells = sell(acct)
+    #tic_d = time.perf_counter()
+    #print(f"Get sells in {tic_c - tic_d:0.4f} seconds")
+    
     tax_form = lotting(buys, sells)
+    #tic_e = time.perf_counter()
+    #print(f"Lot and create tax form in {tic_d - tic_e:0.4f} seconds")
+    
     buy_convert(buys)
+    #tic_f = time.perf_counter()
+    #print(f"Convert buy atomic in {tic_e - tic_f:0.4f} seconds")
+    
     sell_convert(sells)
+    #tic_g = time.perf_counter()
+    #print(f"Convert sell atomic in {tic_f - tic_g:0.4f} seconds")
+    
     staking_test(delegates, buys)
+    #tic_h = time.perf_counter()
+    #print(f"Perform staking test in {tic_g - tic_h:0.4f} seconds")
+    
     exchange_test(buys)
+    #tic_i = time.perf_counter()
+    #print(f"Perform exchange test in {tic_h - tic_i:0.4f} seconds")
+    
     agg_years = summarize(buys,sells)
+    #tic_j = time.perf_counter()
+    #print(f"Summarize buys and sells in {tic_i - tic_j:0.4f} seconds")
 
     # output to buy and sell csv
     #write_csv(buys, sells, agg_years, tax_form)
@@ -436,8 +467,7 @@ def build_network(network):
     t = [int(i) for i in e]
     epoch = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
 
-    set_custom_network(epoch, version, wif)
-    
+    set_custom_network(epoch, version, wif)   
     
 if __name__ == '__main__':
     #app.run(host="127.0.0.1", threaded=False)
