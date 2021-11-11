@@ -95,28 +95,15 @@ def buy(acct):
     tic_a = time.perf_counter()
     s = "Income"
     buy_agg=[]
-    #universe = psql.get_all_multi()
-    #tic_x = time.perf_counter()
-    #print(f"Get all multi transactions in {tic_a - tic_x:0.4f} seconds")
     
     for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
-        #buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
         multi_universe = psql.get_acct_multi(address_from_public_key(i), s)
         buys_multi = psql.get_multi_tx(address_from_public_key(i), s, multi_universe)
         buy_agg += buys
         buy_agg += buys_multi
     
-    for i in buys_multi:
-        print(i)
-        
-    tic_y = time.perf_counter()
-    print(f"Get all account buy transactions in {tic_a - tic_y:0.4f} seconds")
-    quit()
-    
     buy_orders = create_buy_records(buy_agg)
-    tic_z = time.perf_counter()
-    print(f"Create all Buy Records in {tic_y - tic_z:0.4f} seconds")
     
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
@@ -124,9 +111,6 @@ def buy(acct):
     for j in buy_orders_sort:
         j[0] = lot
         lot+=1
-    
-    tic_zz = time.perf_counter()
-    print(f"Sort and reorder Buy Lots in {tic_z - tic_zz:0.4f} seconds")
     
     return buy_orders_sort
 
