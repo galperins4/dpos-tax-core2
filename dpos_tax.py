@@ -410,24 +410,24 @@ def process_taxes(acct):
     print(f"Fetch Delegates in {tic_a - tic_b:0.4f} seconds")
     
     buys = buy(acct)
-    #tic_c = time.perf_counter()
-    #print(f"Get buys in {tic_b - tic_c:0.4f} seconds")
+    tic_c = time.perf_counter()
+    print(f"Get buys in {tic_b - tic_c:0.4f} seconds")
     
     sells = sell(acct)
     tic_d = time.perf_counter()
     print(f"Get sells in {tic_c - tic_d:0.4f} seconds")
     
     tax_form = lotting(buys, sells)
-    #tic_e = time.perf_counter()
-    #print(f"Lot and create tax form in {tic_d - tic_e:0.4f} seconds")
+    tic_e = time.perf_counter()
+    print(f"Lot and create tax form in {tic_d - tic_e:0.4f} seconds")
     
     buy_convert(buys)
     tic_f = time.perf_counter()
     print(f"Convert buy atomic in {tic_e - tic_f:0.4f} seconds")
     
     sell_convert(sells)
-    #tic_g = time.perf_counter()
-    #print(f"Convert sell atomic in {tic_f - tic_g:0.4f} seconds")
+    tic_g = time.perf_counter()
+    print(f"Convert sell atomic in {tic_f - tic_g:0.4f} seconds")
     
     staking_test(delegates, buys)
     tic_h = time.perf_counter()
