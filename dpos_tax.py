@@ -410,7 +410,6 @@ def process_taxes(acct):
     sells = sell(acct)
     tic_d = time.perf_counter()
     print(f"Get sells in {tic_c - tic_d:0.4f} seconds")
-    quit()
     
     tax_form = lotting(buys, sells)
     tic_e = time.perf_counter()
