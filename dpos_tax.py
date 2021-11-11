@@ -117,12 +117,12 @@ def buy(acct):
 def sell(acct):
     s = "sell"
     sell_agg=[]
-    universe = psql.get_all_multi()
+    #universe = psql.get_all_multi()
     for i in acct:
         sells = psql.get_transactions(i, s)
-        sells_multi = psql.get_multi_tx(i, s, universe)
-        #multi_universe = psql.get_acct_multi(i), s)
-        #buys_multi_test = psql.get_multi_tx(i), s, multi_universe)
+        #sells_multi = psql.get_multi_tx(i, s, universe)
+        multi_universe = psql.get_acct_multi(i), s)
+        sells_multi = psql.get_multi_tx(i), s, multi_universe)
         sell_agg += sells
         sell_agg += sells_multi
     
