@@ -9,6 +9,7 @@ import time
 from util.config import use_network
 from crypto.identity.address import address_from_public_key
 from crypto.configuration.network import set_custom_network
+from util.client import Client
 from waitress import serve
 
 
