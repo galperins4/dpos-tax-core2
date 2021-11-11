@@ -470,5 +470,5 @@ def build_network(network):
     set_custom_network(epoch, version, wif)   
     
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", threaded=False)
-    #serve(app, host='127.0.01', port=5000)
+    #app.run(host="127.0.0.1", threaded=False)
+    serve(app, host='127.0.01', port=5000)
