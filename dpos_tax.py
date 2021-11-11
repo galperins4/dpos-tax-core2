@@ -49,7 +49,7 @@ def tax():
                
         # get addresses and exceptions
         req_data = request.get_json()
-        acct = [i for i in req_data['addresses']]
+        tmp_acct = [i for i in req_data['addresses']]
         exceptions = [i for i in req_data["exceptions"]]
         network = req_data['network']
         
@@ -59,11 +59,11 @@ def tax():
         # convert addresses to public keys
         u = Client()
         client = u.get_client(n['port'])
-        acct_converted = [client.wallets.get(i)['data']['publicKey'] for i in acct]
+        acct = [client.wallets.get(i)['data']['publicKey'] for i in acct]
         
         taxdb = TaxDB(n['dbuser'])
         psql = DB(n['database'], n['dbuser'], n['dbpassword'])
-        out_buy, out_sell, out_summary, out_tax = process_taxes(acct_converted)
+        out_buy, out_sell, out_summary, out_tax = process_taxes(acct)
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId']
         summary_cols = ['year', 'income', 'short term', 'long term']
