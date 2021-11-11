@@ -114,10 +114,10 @@ def buy(acct):
     print("new")
     for i in buys_multi_test:
         print(i)
-    quit()
         
     tic_y = time.perf_counter()
     print(f"Get all account buy transactions in {tic_x - tic_y:0.4f} seconds")
+    quit()
     
     buy_orders = create_buy_records(buy_agg)
     tic_z = time.perf_counter()
