@@ -95,15 +95,15 @@ def buy(acct):
     tic_a = time.perf_counter()
     s = "Income"
     buy_agg=[]
-    universe = psql.get_all_multi()
+    #universe = psql.get_all_multi()
     #tic_x = time.perf_counter()
     #print(f"Get all multi transactions in {tic_a - tic_x:0.4f} seconds")
     
     for i in acct:      
         buys = psql.get_transactions(address_from_public_key(i), s)
-        buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
-        #multi_universe = psql.get_acct_multi(address_from_public_key(i), s)
-        #buys_multi = psql.get_multi_tx(address_from_public_key(i), s, multi_universe)
+        #buys_multi = psql.get_multi_tx(address_from_public_key(i), s, universe)
+        multi_universe = psql.get_acct_multi(address_from_public_key(i), s)
+        buys_multi = psql.get_multi_tx(address_from_public_key(i), s, multi_universe)
         buy_agg += buys
         buy_agg += buys_multi
     
