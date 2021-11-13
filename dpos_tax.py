@@ -160,8 +160,8 @@ def create_buy_records(b):
             #else:
             if sender_address in exchange_acct[network]:
                 classify = "Buy - From Exchange"
-            elif:
-                pass
+            elif delegate_check(delegates, sender_address) == "Yes":
+                classify = "Staking Reward"
             else:
                 classify = "Income"
             remain = order_amt
