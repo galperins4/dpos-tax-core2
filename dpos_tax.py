@@ -326,7 +326,7 @@ def buy_convert(b):
 def sell_convert(s):
     for i in s:
         i[1] = i[1]/atomic
-
+'''
 def staking_test(d, b):
     for i in b:
         addr = i[9]
@@ -334,14 +334,14 @@ def staking_test(d, b):
 
         if result == "Yes":
             i[5] = "Staking Reward"
-
-            
+'''
+'''            
 def exchange_test(b):
     for i in b:
         addr = i[9]
         if addr in exchange_acct[network]:
             i[5] = "Buy - From Exchange"
-            
+'''            
 
 def delegate_check(d, check):
    test = "No"
