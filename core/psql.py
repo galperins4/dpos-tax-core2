@@ -26,15 +26,6 @@ class DB:
         except Exception as e:
             print(e)
     
-    '''
-    def get_all_multi(self):
-        # get all multi-payments universe
-        try:
-            self.cursor.execute(f"""SELECT "timestamp", "fee", "sender_public_key", "asset", "id" FROM transactions WHERE "type" = 6 order by "timestamp" DESC""")
-            return self.cursor.fetchall()
-        except Exception as e:
-            print(e)
-    '''
    
     def get_acct_multi(self, account, side):
         # only grab multi-payments associated with account
