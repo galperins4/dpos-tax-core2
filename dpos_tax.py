@@ -438,13 +438,13 @@ def process_taxes(acct):
     tic_g = time.perf_counter()
     print(f"Convert sell atomic in {tic_f - tic_g:0.4f} seconds")
     
-    staking_test(delegates, buys)
+    #staking_test(delegates, buys)
     tic_h = time.perf_counter()
-    print(f"Perform staking test in {tic_g - tic_h:0.4f} seconds")
+    #print(f"Perform staking test in {tic_g - tic_h:0.4f} seconds")
     
-    exchange_test(buys)
+    #exchange_test(buys)
     tic_i = time.perf_counter()
-    print(f"Perform exchange test in {tic_h - tic_i:0.4f} seconds")
+    #print(f"Perform exchange test in {tic_h - tic_i:0.4f} seconds")
     
     agg_years = summarize(buys,sells)
     tic_j = time.perf_counter()
