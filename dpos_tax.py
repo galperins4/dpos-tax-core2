@@ -42,7 +42,7 @@ CORS(app)
 @app.route("/api", methods=['POST'])
 def tax():
     try:
-        global acct_converted
+        #global acct_converted
         global exceptions
         global n
         global network
@@ -156,7 +156,12 @@ def create_buy_records(b):
             #if i[3] in acct:
             #    classify = "Transfer in"
             #else:
-            classify = "Income"
+            if address_from_public_key(i[3]) in exchange_acct[network]:
+                classify = "Buy - From Exchange"
+            elif:
+                pass
+            else:
+                classify = "Income"
             remain = order_amt
             sender = address_from_public_key(i[3])
 
