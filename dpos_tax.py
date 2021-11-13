@@ -42,7 +42,6 @@ CORS(app)
 @app.route("/api", methods=['POST'])
 def tax():
     try:
-        global acct_converted
         global exceptions
         global n
         global network
@@ -99,7 +98,7 @@ def get_db_price(ts):
     return price
 
 
-def buy(acct):
+def buy(acct, delegates):
     tic_a = time.perf_counter()
     s = "Income"
     buy_agg=[]
@@ -111,7 +110,7 @@ def buy(acct):
         buy_agg += buys
         buy_agg += buys_multi
     
-    buy_orders = create_buy_records(buy_agg)
+    buy_orders = create_buy_records(buy_agg, delegates)
     
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
@@ -140,11 +139,12 @@ def sell(acct):
     return sell_orders_sort
 
 
-def create_buy_records(b):
+def create_buy_records(b, d):
     orders = []
 
     for counter, i in enumerate(b):
         if i[4] not in exceptions and i[3] not in acct:
+            sender_address = address_from_public_key(i[3])
             # add attributes timestamp, total amount, tax lot
             ts = i[0]
             # don't include fee in incoming records
@@ -153,15 +153,18 @@ def create_buy_records(b):
             price = get_db_price(ts+n['epoch'])
             market_value = round((price * (order_amt/atomic)),2)
             convert_ts = convert_timestamp((ts+n['epoch']))
-            if i[3] in acct:
-                classify = "Transfer in"
+
+            # check what type of potential income
+            if sender_address in exchange_acct[network]:
+                classify = "Buy - From Exchange"
+            elif delegate_check(d, sender_address) == "Yes":
+                classify = "Staking Reward"
             else:
                 classify = "Income"
             remain = order_amt
-            sender = address_from_public_key(i[3])
 
             # create order record including
-            t = [tax_lot, ts, order_amt, price, market_value, classify, convert_ts, "open", remain, sender]
+            t = [tax_lot, ts, order_amt, price, market_value, classify, convert_ts, "open", remain, sender_address]
 
             # append to buy_orders
             orders.append(t)
@@ -171,7 +174,7 @@ def create_buy_records(b):
 
 def create_sell_records(s):
     sells = []
-    #map pkeys in test_accouts to addresses so transfers check works
+    # map pkeys in test_accouts to addresses so transfers check works
     tmp_list = map(address_from_public_key,acct)
     check = list(tmp_list)
 
@@ -230,7 +233,7 @@ def lotting(b,s):
                 else:
                     long_cap_gain += cap_gain
 
-                # update tform
+                # update tax form
                 tmp = [(lot_quantity/atomic), network, short_ts(j[1]), short_ts(i[0]), 
                        (sold_price*(lot_quantity/atomic)), (j[3]*(lot_quantity/atomic)), round(cap_gain,2), gain_type]
                 tform.append(tmp)
@@ -252,7 +255,7 @@ def lotting(b,s):
                 else:
                     long_cap_gain += cap_gain
 
-                # update tform
+                # update tax form
                 tmp = [(sold_quantity/atomic), network, short_ts(j[1]), short_ts(i[0]), 
                        (sold_price*(sold_quantity/atomic)), (j[3]*(sold_quantity/atomic)), round(cap_gain,2), gain_type]
                 tform.append(tmp)
@@ -309,6 +312,7 @@ def write_csv(b,s,a,t):
         writer = csv.writer(output, lineterminator='\n')
         writer.writerow(fieldnames)
         writer.writerows(t)
+
         
 def buy_convert(b):
     for i in b:
@@ -319,22 +323,7 @@ def buy_convert(b):
 def sell_convert(s):
     for i in s:
         i[1] = i[1]/atomic
-
-def staking_test(d, b):
-    for i in b:
-        addr = i[9]
-        result = delegate_check(d, addr)
-
-        if result == "Yes":
-            i[5] = "Staking Reward"
-
-            
-def exchange_test(b):
-    for i in b:
-        addr = i[9]
-        if addr in exchange_acct[network]:
-            i[5] = "Buy - From Exchange"
-            
+        
 
 def delegate_check(d, check):
    test = "No"
@@ -411,7 +400,7 @@ def process_taxes(acct):
     tic_b = time.perf_counter()
     print(f"Fetch Delegates in {tic_a - tic_b:0.4f} seconds")
     
-    buys = buy(acct)
+    buys = buy(acct, delegates)
     tic_c = time.perf_counter()
     print(f"Get buys in {tic_b - tic_c:0.4f} seconds")
     
@@ -431,17 +420,9 @@ def process_taxes(acct):
     tic_g = time.perf_counter()
     print(f"Convert sell atomic in {tic_f - tic_g:0.4f} seconds")
     
-    staking_test(delegates, buys)
-    tic_h = time.perf_counter()
-    print(f"Perform staking test in {tic_g - tic_h:0.4f} seconds")
-    
-    exchange_test(buys)
-    tic_i = time.perf_counter()
-    print(f"Perform exchange test in {tic_h - tic_i:0.4f} seconds")
-    
     agg_years = summarize(buys,sells)
-    tic_j = time.perf_counter()
-    print(f"Summarize buys and sells in {tic_i - tic_j:0.4f} seconds")
+    tic_h = time.perf_counter()
+    print(f"Summarize buys and sells in {tic_g - tic_h:0.4f} seconds")
 
     # output to buy and sell csv
     #write_csv(buys, sells, agg_years, tax_form)
@@ -458,10 +439,6 @@ def build_network(network):
         e = ["2017", "3", "21", "13", "00", "00"]
         version = 58
         wif = 187  
-    elif network == 'phantom':
-        e = ["2019", "1", "3", "12", "00", "00"]
-        version = 55
-        wif = 170
     elif network == 'hydra':
         e = ["2019", "9", "1", "00", "00", "00"]
         version = 100
