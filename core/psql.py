@@ -25,7 +25,8 @@ class DB:
             return self.cursor.fetchall()
         except Exception as e:
             print(e)
-
+    
+    '''
     def get_all_multi(self):
         # get all multi-payments universe
         try:
@@ -33,7 +34,7 @@ class DB:
             return self.cursor.fetchall()
         except Exception as e:
             print(e)
-    
+    '''
    
     def get_acct_multi(self, account, side):
         # only grab multi-payments associated with account
