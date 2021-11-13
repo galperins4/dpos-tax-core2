@@ -43,7 +43,7 @@ CORS(app)
 def tax():
     try:
         #global acct_converted
-        global delegates
+        #global delegates
         global exceptions
         global n
         global network
@@ -100,7 +100,7 @@ def get_db_price(ts):
     return price
 
 
-def buy(acct):
+def buy(acct, delegates):
     tic_a = time.perf_counter()
     s = "Income"
     buy_agg=[]
@@ -112,7 +112,7 @@ def buy(acct):
         buy_agg += buys
         buy_agg += buys_multi
     
-    buy_orders = create_buy_records(buy_agg)
+    buy_orders = create_buy_records(buy_agg, delegates)
     
     # sort and reorder lots
     buy_orders_sort = sorted(buy_orders, key=lambda x: x[1])
@@ -141,7 +141,7 @@ def sell(acct):
     return sell_orders_sort
 
 
-def create_buy_records(b):
+def create_buy_records(b, d):
     orders = []
 
     for counter, i in enumerate(b):
@@ -160,7 +160,7 @@ def create_buy_records(b):
             #else:
             if sender_address in exchange_acct[network]:
                 classify = "Buy - From Exchange"
-            elif delegate_check(delegates, sender_address) == "Yes":
+            elif delegate_check(d, sender_address) == "Yes":
                 classify = "Staking Reward"
             else:
                 classify = "Income"
@@ -418,7 +418,7 @@ def process_taxes(acct):
     tic_b = time.perf_counter()
     print(f"Fetch Delegates in {tic_a - tic_b:0.4f} seconds")
     
-    buys = buy(acct)
+    buys = buy(acct, delegates)
     tic_c = time.perf_counter()
     print(f"Get buys in {tic_b - tic_c:0.4f} seconds")
     
