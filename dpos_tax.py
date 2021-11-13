@@ -146,6 +146,7 @@ def create_buy_records(b):
 
     for counter, i in enumerate(b):
         if i[4] not in exceptions and i[3] not in acct:
+            sender_address = address_from_public_key(i[3])
             # add attributes timestamp, total amount, tax lot
             ts = i[0]
             # don't include fee in incoming records
@@ -157,17 +158,17 @@ def create_buy_records(b):
             #if i[3] in acct:
             #    classify = "Transfer in"
             #else:
-            if address_from_public_key(i[3]) in exchange_acct[network]:
+            if sender_address in exchange_acct[network]:
                 classify = "Buy - From Exchange"
             elif:
                 pass
             else:
                 classify = "Income"
             remain = order_amt
-            sender = address_from_public_key(i[3])
+            #sender = address_from_public_key(i[3])
 
             # create order record including
-            t = [tax_lot, ts, order_amt, price, market_value, classify, convert_ts, "open", remain, sender]
+            t = [tax_lot, ts, order_amt, price, market_value, classify, convert_ts, "open", remain, sender_address]
 
             # append to buy_orders
             orders.append(t)
