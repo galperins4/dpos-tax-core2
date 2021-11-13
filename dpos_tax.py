@@ -43,7 +43,6 @@ CORS(app)
 def tax():
     try:
         #global acct_converted
-        #global delegates
         global exceptions
         global n
         global network
