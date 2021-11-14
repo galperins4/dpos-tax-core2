@@ -66,6 +66,8 @@ class TaxDB:
     
     
     def get_match_price(self, ts):
+        # day adjust if needed
+        ts = ts + 86400
         self.cursor.execute(f"""SELECT "usd" FROM prices WHERE "timestamp" >= '{ts}' ORDER BY "timestamp" ASC limit 1""")
         price = self.cursor.fetchall()
         
