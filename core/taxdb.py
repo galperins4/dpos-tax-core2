@@ -66,8 +66,9 @@ class TaxDB:
     
     
     def get_match_price(self, ts):
+        print(ts)
         self.cursor.execute("SELECT * FROM prices WHERE timestamp >= '{ts}' ORDER BY timestamp ASC limit 1")
-        price = self.cursor.fetchall()
+        price = self.cursor.fetchone()
         print(len(price))
         print(price)
 
