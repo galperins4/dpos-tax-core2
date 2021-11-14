@@ -150,10 +150,15 @@ def create_buy_records(b, d):
             # don't include fee in incoming records
             order_amt = i[1]
             tax_lot = counter+1
+            tic_a = time.perf_counter()
             price = get_db_price(ts+n['epoch'])
             print("Old Price", price)
+            tic_b = time.perf_counter()
+            print(f"Get old price in {tic_a - tic_b:0.4f} seconds")
             price_two = taxdb.get_match_price(ts+n['epoch'])
             print("New Price", price_two)
+            tic_c = time.perf_counter()
+            print(f"Get new price in {tic_b - tic_c:0.4f} seconds")
             quit()
             market_value = round((price * (order_amt/atomic)),2)
             convert_ts = convert_timestamp((ts+n['epoch']))
