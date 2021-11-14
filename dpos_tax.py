@@ -153,7 +153,7 @@ def create_buy_records(b, d):
             price = get_db_price(ts+n['epoch'])
             print("Old Price", price)
             price_two = taxdb.get_match_price(ts+n['epoch'])
-            print("New Price" price_two)
+            print("New Price", price_two)
             quit()
             market_value = round((price * (order_amt/atomic)),2)
             convert_ts = convert_timestamp((ts+n['epoch']))
