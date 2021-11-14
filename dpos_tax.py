@@ -82,21 +82,6 @@ def tax():
         error ={"success":False, "msg":"API Error"}
         return jsonify(Error=error)
     
-'''
-def get_db_price(ts):
-    p = taxdb.get_prices().fetchall()
-
-    for counter, i in enumerate(p):
-        if i[0] >= ts:
-            break
-
-    if (counter+1) == len(p):
-        price = p[counter][1]
-    else:
-        price = p[counter + 1][1]
-
-    return price
-'''
 
 def buy(acct, delegates):
     s = "Income"
@@ -149,7 +134,6 @@ def create_buy_records(b, d):
             # don't include fee in incoming records
             order_amt = i[1]
             tax_lot = counter+1
-            #price = get_db_price(ts+n['epoch'])
             price = taxdb.get_match_price(ts+n['epoch'])
             market_value = round((price * (order_amt/atomic)),2)
             convert_ts = convert_timestamp((ts+n['epoch']))
@@ -187,7 +171,6 @@ def create_sell_records(s):
             sell_amt = (i[2])  
         
         ts = i[0]    
-        #price = get_db_price(ts+n['epoch'])
         price = taxdb.get_match_price(ts+n['epoch'])
         market_value = round((price *(sell_amt/atomic)),2)
         convert_ts = convert_timestamp((ts + n['epoch']))
