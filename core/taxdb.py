@@ -71,7 +71,7 @@ class TaxDB:
         self.cursor.execute(f"""SELECT "usd" FROM prices WHERE "timestamp" >= '{ts}' ORDER BY "timestamp" ASC limit 1""")
         price = self.cursor.fetchall()
         
-        if len(price)) == 0:
+        if len(price) == 0:
             self.cursor.execute(f"""SELECT "usd" from prices ORDER BY "timestamp" DESC limit 1""")
             price = self.cursor.fetchall()
             return price[0][0]
