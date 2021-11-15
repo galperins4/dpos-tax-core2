@@ -382,6 +382,12 @@ def summarize(b,s):
 def process_taxes(acct):
     tic_a = time.perf_counter()
     delegates = taxdb.get_delegates().fetchall()
+    
+    # remove delegate addresses from processing
+    for i in acct:
+        if i in delegates:
+            acct.remove(i)
+    
     tic_b = time.perf_counter()
     print(f"Fetch Delegates in {tic_a - tic_b:0.4f} seconds")
     
