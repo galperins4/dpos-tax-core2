@@ -384,9 +384,9 @@ def process_taxes(acct):
     delegates = taxdb.get_delegates().fetchall()
     
     # remove delegate addresses from processing
-    for i in acct:
-        if i in delegates:
-            acct.remove(i)
+    for x in acct:
+        if x in delegates:
+            acct.remove(x)
     
     tic_b = time.perf_counter()
     print(f"Fetch Delegates in {tic_a - tic_b:0.4f} seconds")
