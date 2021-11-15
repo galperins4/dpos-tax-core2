@@ -385,7 +385,7 @@ def process_taxes(acct):
     
     # remove delegate addresses from processing
     for x in acct:
-        if x in delegates:
+        if delegate_check(delegates, address_from_public_key(x)) == "Yes":
             acct.remove(x)
     
     tic_b = time.perf_counter()
