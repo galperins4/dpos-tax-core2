@@ -333,7 +333,7 @@ def summarize(b,s):
     twonineteen = 1546322400
     twotwenty = 1577858400
     twotwentyone = 1609480800
-    twotwentytwo = 
+    twotwentytwo = 1641016800
     
     for i in b:
         if (i[1]+n['epoch']) < twoeighteen:
