@@ -65,7 +65,7 @@ def tax():
         acct = [client.wallets.get(i)['data']['publicKey'] for i in tmp_acct]
         
         taxdb = TaxDB(n['dbuser'])
-        psql = DB(n['database'], n['dbuser'], n['dbpassword'])
+        psql = DB(n['database'], n['dbhost'], n['dbuser'], n['dbpassword'])
         out_buy, out_sell, out_summary, out_tax = process_taxes(acct)
         buy_cols = ['tax lot', 'timestamp', 'buy amount', 'price', 'market value', 'tx type', 'datetime', 'lot status', 'remaining_qty', 'senderId']
         sell_cols = ['timestamp', 'sell amount', 'price', 'market value', 'datetime', 'short term', 'long term', 'recipientId']
