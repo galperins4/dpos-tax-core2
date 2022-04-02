@@ -18,6 +18,7 @@ def use_network(network_name):
     network = {
         'epoch': int(settings.get(network_name, 'epoch')),
         'database': settings.get(network_name, 'database'),
+        'dbhost': settings.get(network_name, 'dbhost'),
         'dbuser': settings.get(network_name, 'dbuser'),
         'dbpassword': settings.get(network_name, 'dbpassword'),
         'ticker': settings.get(network_name, 'ticker'),
@@ -41,6 +42,7 @@ def set_custom_network(epoch, database, dbpassword):
     Args:
         epoch (int): chains epoch time
         database (str): chains database
+        databas host (str): chains database host
         dbuser (str): chains database user
         database password (str): chains database password
         ticker (str): ticker symbol
