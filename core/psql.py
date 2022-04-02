@@ -3,13 +3,13 @@ import psycopg2
 
 
 class DB:
-    def __init__(self, db, u, pw):
+    def __init__(self, db, dbh, u, pw):
         self.connection = psycopg2.connect(
-            dbname=db,
-            user=u,
-            password=pw,
-            host='localhost',
-            port='5432'
+            dbname = db,
+            user = u,
+            password = pw,
+            host = dbh,
+            port = '5432'
         )
 
         self.cursor = self.connection.cursor()
