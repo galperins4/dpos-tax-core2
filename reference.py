@@ -32,7 +32,7 @@ if __name__ == '__main__':
     n = use_network(option)
     u = Client()
     client = u.get_client(n['port'])
-    psql = DB(n['database'], n['dbuser'], n['dbpassword'])
+    psql = DB(n['database'], n['dbhost'], n['dbuser'], n['dbpassword'])
     taxdb = TaxDB(n['dbuser'])
 
     # update delegate list
