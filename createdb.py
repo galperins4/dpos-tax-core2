@@ -17,7 +17,7 @@ if __name__ == "__main__":
     # check to see if tax.db exists, if not initialize db, etc
     if os.path.exists('tax.db') == False:
         taxdb = TaxDB(n['dbuser'])
-        psql = DB(n['database'], n['dbuser'], n['dbpassword'])
+        psql = DB(n['database'], n['dbhost'], n['dbuser'], n['dbpassword'])
         taxdb.setup()
 
         # setup initial delegates
