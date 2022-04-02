@@ -8,12 +8,14 @@ class DB:
         print(dbh)
         print(u)
         print(pw)
+        self.dbh = "/home/" + u + dbh
+        quit()
         
         self.connection = psycopg2.connect(
             dbname = db,
             user = u,
             password = pw,
-            host = dbh,
+            host = self.dbh,
             port = '5432'
         )
 
