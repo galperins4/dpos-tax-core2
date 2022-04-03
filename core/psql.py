@@ -4,13 +4,7 @@ import psycopg2
 
 class DB:
     def __init__(self, db, dbh, u, pw):
-        print(db)
-        
-        print(u)
-        print(pw)
         self.dbh = "/home/" + u + dbh
-        print(self.dbh)
-        quit()
         
         self.connection = psycopg2.connect(
             dbname = db,
