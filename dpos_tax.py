@@ -426,7 +426,7 @@ def process_taxes(acct):
     print(f"Summarize buys and sells in {tic_g - tic_h:0.4f} seconds")
 
     # output to buy and sell csv
-    #write_csv(buys, sells, agg_years, tax_form)
+    write_csv(buys, sells, agg_years, tax_form)
 
     return buys, sells, agg_years, tax_form
 
