@@ -9,7 +9,7 @@ class DB:
         print(u)
         print(pw)
         self.dbh = "/home/" + u + dbh
-        print(dbh)
+        print(self.dbh)
         quit()
         
         self.connection = psycopg2.connect(
