@@ -34,7 +34,7 @@ class DB:
         try:
             if side == "Income":
                 self.cursor.execute("""SELECT "timestamp", "fee", "sender_public_key", "asset", "id" from "transactions" WHERE asset::jsonb @> '{
-                                    "payments": [{"recipientId":"%s"}]}'::jsonb order by "timestamp" DESC;""" % (account))
+                                    "transfers": [{"recipientId":"%s"}]}'::jsonb order by "timestamp" DESC;""" % (account))
             else:
                 self.cursor.execute(f"""SELECT "timestamp", "fee", "sender_public_key", "asset", "id" FROM transactions WHERE "type" = 6 
                                AND "sender_public_key" = '{account}' order by "timestamp" DESC""")       
@@ -47,7 +47,7 @@ class DB:
             acct_multi=[]
             if side == "Income":
                 for i in universe:
-                    for j in i[3]['payments']:
+                    for j in i[3]['transfers']:
                         if j['recipientId'] == account:
                             tmp = (i[0], int(j['amount']), i[1], i[2], i[4])
                             acct_multi.append(tmp)
@@ -55,9 +55,9 @@ class DB:
                 # need to figure out how to get fee and divide across transactions
                 for i in universe:
                     if i[2] == account:
-                        multi_count = len(i[3]['payments'])
+                        multi_count = len(i[3]['transfers'])
                         fee = int(i[1] / multi_count)
-                        for j in i[3]['payments']:
+                        for j in i[3]['transfers']:
                             tmp = (i[0], int(j['amount']), fee, j['recipientId'], i[4])
                             acct_multi.append(tmp)            
             return acct_multi
