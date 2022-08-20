@@ -111,13 +111,20 @@ def sell(acct):
     s = "sell"
     sell_agg=[]
     for i in acct:
+        # temp fix to address None issues
+        none_sell = []
         sells = psql.get_transactions(i, s)
-        #for y in sells:
-        #    print(y)
+        
+        for y in sells:
+            if y[1] == None:
+                tmp_record = (y[0], 0, y[2], address_from_public_key(i), y[4])
+                none_sell.append(tmp_record)
+            else:
+                none_sell.append(y)
         
         multi_universe = psql.get_acct_multi(i, s)
         sells_multi = psql.get_multi_tx(i, s, multi_universe)
-        sell_agg += sells
+        sell_agg += none_sell
         sell_agg += sells_multi
     
     sell_orders = create_sell_records(sell_agg)
