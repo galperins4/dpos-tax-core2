@@ -112,9 +112,8 @@ def sell(acct):
     sell_agg=[]
     for i in acct:
         sells = psql.get_transactions(i, s)
-        for i in sells:
-            print(i)
-        quit()
+        #for y in sells:
+        #    print(y)
         
         multi_universe = psql.get_acct_multi(i, s)
         sells_multi = psql.get_multi_tx(i, s, multi_universe)
