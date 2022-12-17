@@ -328,12 +328,14 @@ def summarize(b,s):
     year4 = {"income":0, "short":0, "long":0}
     year5 = {"income":0, "short":0, "long":0}
     year6 = {"income":0, "short":0, "long":0}
+    year7 = {"income":0, "short":0, "long":0}
     income = ['Staking Reward','Income']
     twoeighteen = 1514786400
     twonineteen = 1546322400
     twotwenty = 1577858400
     twotwentyone = 1609480800
     twotwentytwo = 1641016800
+    twotwentythree = 1672552800
     
     for i in b:
         if (i[1]+n['epoch']) < twoeighteen:
@@ -351,9 +353,12 @@ def summarize(b,s):
         elif (i[1]+n['epoch']) < twotwentytwo:
             if i[5] in income:
                 year5['income']+=i[4]
+        elif (i[1]+n['epoch']) < twotwentythree:
+            if i[5] in income:
+                year6['income']+=i[4] 
         else:
             if i[5] in income:
-                year6['income']+=i[4]
+                year7['income']+=i[4]
       
     for j in s:
         if (j[0]+n['epoch']) < twoeighteen:
@@ -372,9 +377,12 @@ def summarize(b,s):
         elif (j[0]+n['epoch']) < twotwentytwo:
             year5['short']+=j[5]
             year5['long']+=j[6]
-        else:
+        elif (j[0]+n['epoch']) < twotwentythree:
             year6['short']+=j[5]
-            year6['long']+=j[6]  
+            year6['long']+=j[6]
+        else:
+            year7['short']+=j[5]
+            year7['long']+=j[6]  
            
     
     sum_year1 = ["2017",round(year1['income'],2),round(year1['short'],2),round(year1['long'],2)]
@@ -383,8 +391,9 @@ def summarize(b,s):
     sum_year4 = ["2020",round(year4['income'],2),round(year4['short'],2),round(year4['long'],2)]
     sum_year5 = ["2021",round(year5['income'],2),round(year5['short'],2),round(year5['long'],2)]
     sum_year6 = ["2022",round(year6['income'],2),round(year6['short'],2),round(year6['long'],2)]
+    sum_year7 = ["2023",round(year7['income'],2),round(year7['short'],2),round(year7['long'],2)]
     
-    years = [sum_year1, sum_year2, sum_year3, sum_year4, sum_year5, sum_year6]
+    years = [sum_year1, sum_year2, sum_year3, sum_year4, sum_year5, sum_year6, sum_year7]
     return years
       
 
